@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="images/header-logo.svg" alt="logo mesto">
+    </header>
+    <main>
+      <section class="profile">
+        <img class="profile__image"  src="images/profile-avatar.jpg" alt="avatar">
+        <div class="profile__info">
+          <p class="profile__name">Жак-Ив Кусто</p>
+          <button class="profile__edit"></button>
+          <p class="profile__about">Исследователь океана</p>
+        </div>
+        <button class="profile__add"></button>
+      </section>
+      <section class="cards">
+        <ul class="cards__list">
+          <li class="card">
+            <img class="card__image" src="images/card-list-trip.jpg" alt="Long trip">
+            <div class="card__description">
+              <h2 class="card__title">Долгая дорога</h2>
+              <button class="card__button card__button_active"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="images/card-list-bus.jpg" alt="electrobus">
+            <div class="card__description">
+              <h2 class="card__title">Это электробус</h2>
+              <button class="card__button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="images/card-list-waterfall.jpg" alt="waterfall">
+            <div class="card__description">
+              <h2 class="card__title">Водопад</h2>
+              <button class="card__button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="images/card-list-ride.jpg" alt="night rides">
+            <div class="card__description">
+              <h2 class="card__title">Ночные покатушки</h2>
+              <button class="card__button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="images/card-list-car.jpg" alt="man in car">
+            <div class="card__description">
+              <h2 class="card__title">Загадочный парень</h2>
+              <button class="card__button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img class="card__image" src="images/card-list-cabot.jpg" alt="Cabot Tower">
+            <div class="card__description">
+              <h2 class="card__title">Кэбот Тауэр</h2>
+              <button class="card__button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    <footer class="footer">
+      <p class="footer__author">&copy; 2020. Mesto Russia</p>
+    </footer>
+  </div>
+
+  <div class="popup popup_opened"> <!-- popup_opened -->
+    <div class="popup__container">
+      <img class="popup__close" src="images/profile-button-icon.svg" alt="close button">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" action="">
+        <input class="popup__input" type="text" placeholder="Жак-Ив кусто">
+        <input class="popup__input" type="text" placeholder="Исследователь океана">
+        <button class="popup__save">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

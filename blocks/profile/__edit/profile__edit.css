@@ -1,0 +1,20 @@
+.profile__edit {
+  width: 24px;
+  height: 24px;
+  align-self: center;
+  justify-self: center;
+  border: 1px solid #fff;
+  transition: opacity 0.3s;
+  background: url(../../../../images/profile-button-pencil.svg) no-repeat center center;
+}
+
+.profile__edit:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 680px) {
+  .profile__edit {
+    width: 19px;
+    height: 19px;
+  }
+}

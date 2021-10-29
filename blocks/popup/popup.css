@@ -1,0 +1,11 @@
+.popup {
+  font-family: Inter;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(42, 44, 47, 0.5);
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: none;
+}

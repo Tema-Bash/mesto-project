@@ -1,0 +1,13 @@
+.card__button {
+  width: 22px;
+  padding: 0;
+  height: 19px;
+  border: 0;
+  background: url(../../../images/card-heart-white.svg);
+  align-self: center;
+  transition: background 0.3s;
+}
+
+.card__button:hover {
+  background: url(../../../images/card-heart-hover.svg);
+}
