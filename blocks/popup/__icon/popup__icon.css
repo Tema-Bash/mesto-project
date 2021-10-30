@@ -1,0 +1,17 @@
+.popup__icon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: rotate(45deg);
+  width: 42px;
+  height: 42px;
+}
+
+@media screen and (max-width: 680px) {
+  .popup__icon {
+    top: 0px;
+    right: 0px;
+    width: 25px;
+    height: 25px;
+  }
+}
