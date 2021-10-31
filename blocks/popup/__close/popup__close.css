@@ -5,7 +5,12 @@
   transition: opacity 0.3s;
   width: 42px;
   height: 42px;
+  transform: rotate(45deg);
   background-color: transparent;
+  background-image: url(../../../images/profile-button-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   border: 0;
 }
 
