@@ -5,4 +5,4 @@
 
 В будущем проект "оживет" благодаря JavaScript.
 
-[Посмотреть проект можно тут](https://tema-bash.github.io/mesto-project/index.html)
+[Посмотреть проект можно тут](https://tema-bash.github.io/mesto-project)
