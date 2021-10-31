@@ -5,7 +5,7 @@
   justify-self: center;
   border: 1px solid #fff;
   transition: opacity 0.3s;
-  background: url(../../../../images/profile-button-pencil.svg) no-repeat center center;
+  background: url(../../../images/profile-button-pencil.svg) no-repeat center center;
 }
 
 .profile__edit:hover {

@@ -6,7 +6,7 @@
   border: 2px solid #fff;
   box-sizing: border-box;
   padding: 0;
-  background: url(../../../../images/profile-button-icon.svg) no-repeat center center;
+  background: url(../../../images/profile-button-icon.svg) no-repeat center center;
   transition: opacity 0.3s;
 }
 
