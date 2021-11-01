@@ -17,7 +17,7 @@
 
 .popup__save:hover {
   background-color: rgba(0, 0, 0, 0.8);
-  cursor: pointer
+  cursor: pointer;
 }
 
 @media screen and (max-width: 680px) {
