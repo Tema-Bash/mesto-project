@@ -5,6 +5,7 @@
   height: 50px;
   border: 2px solid #fff;
   box-sizing: border-box;
+  border-radius: 2px;
   padding: 0;
   background: url(../../../images/profile-button-icon.svg) no-repeat center center;
   transition: opacity 0.3s;
