@@ -6,11 +6,11 @@
   border: 1px solid #fff;
   transition: opacity 0.3s;
   background: url(../../../images/profile-button-pencil.svg) no-repeat center center;
+  cursor: pointer;
 }
 
 .profile__edit:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 680px) {
