@@ -6,9 +6,9 @@
   background: url(../../../images/card-heart-white.svg);
   align-self: center;
   transition: background 0.3s;
+  cursor: pointer;
 }
 
 .card__button:hover {
   background: url(../../../images/card-heart-hover.svg);
-  cursor: pointer;
 }
