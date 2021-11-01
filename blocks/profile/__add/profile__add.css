@@ -9,11 +9,11 @@
   padding: 0;
   background: url(../../../images/profile-button-icon.svg) no-repeat center center;
   transition: opacity 0.3s;
+  cursor: pointer;
 }
 
 .profile__add:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 680px) {
