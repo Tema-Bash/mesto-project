@@ -1,0 +1,9 @@
+.popup__container_type_profile {
+  width: 430px;
+}
+
+@media screen and (max-width: 680px) {
+  .popup__container_type_profile {
+    width: 282px;
+  }
+}
