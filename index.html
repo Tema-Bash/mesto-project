@@ -23,48 +23,16 @@
       </section>
       <section class="cards">
         <ul class="cards__list">
-          <li class="card">
-            <img class="card__image" src="images/card-list-trip.jpg" alt="Долгая дорога">
-            <div class="card__description">
-              <h2 class="card__title">Долгая дорога</h2>
-              <button class="card__button card__button_active" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/card-list-bus.jpg" alt="Это электробус">
-            <div class="card__description">
-              <h2 class="card__title">Это электробус</h2>
-              <button class="card__button" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/card-list-waterfall.jpg" alt="Водопад">
-            <div class="card__description">
-              <h2 class="card__title">Водопад</h2>
-              <button class="card__button" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/card-list-ride.jpg" alt="Ночные покатушки">
-            <div class="card__description">
-              <h2 class="card__title">Ночные покатушки</h2>
-              <button class="card__button" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/card-list-car.jpg" alt="Загадочный парень">
-            <div class="card__description">
-              <h2 class="card__title">Загадочный парень</h2>
-              <button class="card__button" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="images/card-list-cabot.jpg" alt="Кэбот Тауэр">
-            <div class="card__description">
-              <h2 class="card__title">Кэбот Тауэр</h2>
-              <button class="card__button" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
+          <template id="card-template">
+            <li class="card">
+              <button class="card__delete" aria-label="удалить" type="button"></button>
+              <img class="card__image" src="" alt="">
+              <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button class="card__button" aria-label="Лайк" type="button"></button>
+              </div>
+            </li>
+          </template>
         </ul>
       </section>
     </main>
@@ -83,8 +51,8 @@
       </form>
     </div>
   </div>
-
-  <div class="popup"> <!-- popup_opened -->
+<!--
+  <div class="popup">
     <div class="popup__container">
       <button class="popup__close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
@@ -95,6 +63,7 @@
       </form>
     </div>
   </div>
+-->
   <script src="./scripts/index.js"></script>
 </body>
 </html>

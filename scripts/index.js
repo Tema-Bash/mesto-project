@@ -28,7 +28,13 @@ const formSubmitHandler = (evt) => {
 }
 formElement.addEventListener('submit', formSubmitHandler); 
 
+/*cardList*/
+
 const initialCards = [
+  {
+    name: 'paris',
+    link: 'https://images.pexels.com/photos/9966302/pexels-photo-9966302.jpeg'
+  },
     {
       name: 'Долгая дорога',
       link: 'images/card-list-trip.jpg'
@@ -54,9 +60,56 @@ const initialCards = [
       link: 'images/card-list-cabot.jpg'
     }
   ]; 
+const cardList = document.querySelector('.cards__list');
+const cardTemplate = document.querySelector('#card-template').content;
+function handleCardLikeClick (event) {
+  event.target.classList.toggle('card__button_active')
+}
+function handleCardDeleteClick(event) {
+  event.target.closest('.card').remove()
+}
+function createCard(link, title) {
+  const cardCloneElement = cardTemplate.querySelector('.card').cloneNode(true);
+  cardCloneElement.querySelector('.card__image').src = link;
+  cardCloneElement.querySelector('.card__image').alt = title;
+  cardCloneElement.querySelector('.card__title').textContent = title;
+  cardCloneElement.querySelector('.card__button').addEventListener('click', handleCardLikeClick)
+  cardCloneElement.querySelector('.card__delete').addEventListener('click', handleCardDeleteClick)
+  return cardCloneElement
+}
+function renderCard(cardList, cardCloneElement) {
+  cardList.prepend(cardCloneElement)
+}
+
+initialCards.forEach((items, i) => {
+  renderCard(cardList, createCard(initialCards[i].link, initialCards[i].name))
+});
+
+
 
 
 /*
+<template id="user">
+  <div class="user">
+    <img class="user__avatar" alt="avatar">
+    <p class="user__name"></p>
+  </div>
+</template> 
+
+const userTemplate = document.querySelector('#user').content;
+const usersOnline = document.querySelector('.users-online');
+// клонируем содержимое тега template
+const userElement = userTemplate.querySelector('.user').cloneNode(true);
+// наполняем содержимым
+userElement.querySelector('.user__avatar').src = 'tinyurl.com/v4pfzwy';
+userElement.querySelector('.user__name').textContent = 'Дюк Корморант';
+// отображаем на странице
+usersOnline.append(userElement);  
+*/
+
+
+/*
+
 const initialCards = [
     {
       name: 'Архыз',
