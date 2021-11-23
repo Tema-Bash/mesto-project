@@ -1,13 +1,14 @@
 .page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-width: 918px;
+  /*justify-content: center;*/
+  min-height: 100vh;
+
+
   min-width: 320px;
   margin: 0 auto;
   padding: 0 19px;
   text-rendering: optimizeLegibility;
-  min-width: 320px;
 }
 
 @media screen and (max-width: 680px) {
