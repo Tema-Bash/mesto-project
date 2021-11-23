@@ -25,8 +25,8 @@
         <ul class="cards__list">
           <template id="card-template">
             <li class="card">
-              <button class="card__delete" aria-label="удалить" type="button"></button>
               <img class="card__image" src="" alt="">
+              <button class="card__delete" aria-label="удалить" type="button"></button>
               <div class="card__description">
                 <h2 class="card__title"></h2>
                 <button class="card__button" aria-label="Лайк" type="button"></button>
@@ -46,8 +46,8 @@
       <button class="popup__close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form popup__form_type_profile" action="#" method="POST" name="myForm">
-        <input class="popup__input" name="formName" type="text" value="Жак-Ив кусто" required>
-        <input class="popup__input" name="formAbout" type="text" value="Исследователь океана" required>
+        <input class="popup__input popup__input_type_name" name="formName" type="text" placeholder="Жак-Ив кусто" value="Жак-Ив кусто" required>
+        <input class="popup__input popup__input_type_about" name="formAbout" type="text" placeholder="Исследователь океана" value="Исследователь океана" required>
         <button class="popup__save" aria-label="Сохранить" type="submit">Сохранить</button>
       </form>
     </div>
@@ -58,8 +58,8 @@
       <button class="popup__close" aria-label="Закрыть" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form popup__form_type_cards" action="#" method="POST" name="myForm">
-        <input class="popup__input" name="formName" type="text" placeholder="Название" required>
-        <input class="popup__input" name="formAbout" type="text" placeholder="Ссылка на картинку" required>
+        <input class="popup__input popup__input_type_name" name="formName" type="text" placeholder="Название" required>
+        <input class="popup__input popup__input_type_link" name="formLink" type="text" placeholder="Ссылка на картинку" required>
         <button class="popup__save" aria-label="Создать" type="submit">Создать</button>
       </form>
     </div>

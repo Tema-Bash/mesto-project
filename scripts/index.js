@@ -27,14 +27,16 @@ const initialCards = [
 const profilePopup = document.querySelector('.popup_type_profile');
 const cardListPopup = document.querySelector('.popup_type_cards');
 const imagePopup = document.querySelector('.popup_type_image');
-const openPopupButtonElement = document.querySelector(".profile__edit")
-const popupSaveButtonElement = document.querySelector(".popup__save");
-const addCardProfileButtonElement = document.querySelector(".profile__add")
-const formElementProfile = document.querySelector(".popup__form_type_profile")
-const submitNewCardButton = document.querySelector(".popup__form_type_cards")
-const inputList = Array.from(profilePopup.querySelectorAll(".popup__input"))
-const nameInput = document.querySelector(".profile__name")
-const jobInput = document.querySelector(".profile__about")
+const openPopupProfileButtonElement = document.querySelector(".profile__edit");
+const addCardProfileButtonElement = document.querySelector(".profile__add");
+const formElementProfile = document.querySelector(".popup__form_type_profile");
+const NewCardSubmitButton = document.querySelector(".popup__form_type_cards");
+const cardPopupName = cardListPopup.querySelector('.popup__input_type_name');
+const cardPopupLink = cardListPopup.querySelector('.popup__input_type_link');
+const profilePopupName = profilePopup.querySelector('.popup__input_type_name')
+const profilePopupAbout = profilePopup.querySelector('.popup__input_type_about')
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__about");
 const cardList = document.querySelector('.cards__list'); 
 const cardTemplate = document.querySelector('#card-template').content;  
 //функции открытия закрытия попапа
@@ -47,10 +49,10 @@ const closePopup = (popup) => {
 //слушатель на "крестик" для закрытия попапа профиля
 profilePopup.querySelector('.popup__close').addEventListener('click', () => {closePopup(profilePopup)})
 //открываем попап и подтягиваем значения строк из верстки
-openPopupButtonElement.addEventListener("click", () => {
+openPopupProfileButtonElement.addEventListener("click", () => {
   openPopup(profilePopup)
-  inputList[0].value = nameInput.textContent;
-  inputList[1].value = jobInput.textContent;
+  profilePopupName.value = profileName.textContent;
+  profilePopupAbout.value = profileAbout.textContent;
 })
 //закрыть попап профиля при клике вне белого контейнера попапа
 profilePopup.addEventListener("click",() => {closePopup(profilePopup)}) 
@@ -59,13 +61,13 @@ profilePopup.querySelector(".popup__container").addEventListener("click", (event
   event.stopPropagation()
 })
 //Сохраняем новые введеные данные в шапку профиля
-const formSubmitHandler = (evt) => {
+const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
-  nameInput.textContent = inputList[0].value;
-  jobInput.textContent = inputList[1].value;
+  profileName.textContent = profilePopupName.value;
+  profileAbout.textContent = profilePopupAbout.value;
   closePopup(profilePopup);
 }
-formElementProfile.addEventListener('submit', formSubmitHandler); 
+formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
 
 addCardProfileButtonElement.addEventListener("click", () => {openPopup(cardListPopup)})
 //закрыть попап при клике вне белого контейнера попапа
@@ -86,12 +88,13 @@ function handleCardDeleteClick(event) {
 //создаем карточку
 function createCard(link, title) {
   const cardCloneElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardCloneElement.querySelector('.card__image').src = link;
-  cardCloneElement.querySelector('.card__image').alt = title;
+  const cardCloneElementImage = cardCloneElement.querySelector('.card__image');
+  cardCloneElementImage.src = link;
+  cardCloneElementImage.alt = title;
   cardCloneElement.querySelector('.card__title').textContent = title;
   cardCloneElement.querySelector('.card__button').addEventListener('click', handleCardLikeClick);
   cardCloneElement.querySelector('.card__delete').addEventListener('click', handleCardDeleteClick);
-  cardCloneElement.querySelector('.card__image').addEventListener('click', handleCardBigClick)
+  cardCloneElementImage.addEventListener('click', handleCardBigClick)
   return cardCloneElement
 }
 //добавляем карточку в начало страницы
@@ -99,27 +102,30 @@ function renderCard(cardList, cardCloneElement) {
   cardList.prepend(cardCloneElement)
 }
 //рендерим начальный массив
-initialCards.forEach((item, i) => {
+initialCards.forEach(item => {
   renderCard(cardList, createCard(item.link, item.name))
 });
 
-//рендерим новую карточку
-const formSaveHandler = (evt) => {
+//рендерим новую карточку 
+const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
+  renderCard(cardList, createCard(cardPopupLink.value,cardPopupName.value))
+  NewCardSubmitButton.reset()
   closePopup(cardListPopup);
-  const inputListCardsPopup = Array.from(cardListPopup.querySelectorAll(".popup__input"))
-  renderCard(cardList, createCard(inputListCardsPopup[1].value,inputListCardsPopup[0].value))
 }
-submitNewCardButton.addEventListener('submit', formSaveHandler); 
+NewCardSubmitButton.addEventListener('submit', handleSubmitNewCard); 
 
 //открываем попап конкретной карточки
 function handleCardBigClick (event) {
   openPopup(imagePopup);
-  imagePopup.querySelector('.popup__close').addEventListener('click', () => {closePopup(imagePopup)})
-  imagePopup.querySelector('.popup__image').src = event.target.src;
+  const imagePopupImage = imagePopup.querySelector('.popup__image');
+  imagePopupImage.src = event.target.src;
+  imagePopupImage.alt = event.target.alt;
   imagePopup.querySelector('.popup__name').textContent = event.target.closest('.card').querySelector('.card__title').textContent;
 }
- //закрыть попап при клике вне белого контейнера попапа
+//закрываем папал конкретной карточки на крестик
+imagePopup.querySelector('.popup__close').addEventListener('click', () => {closePopup(imagePopup)})
+//закрыть попап конкретной карточки при клике вне белого контейнера попапа
 imagePopup.addEventListener("click",() => {closePopup(imagePopup)})
 imagePopup.querySelector(".popup__container").addEventListener("click", (event) => {
   event.stopPropagation()

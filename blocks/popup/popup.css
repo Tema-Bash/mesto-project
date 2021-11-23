@@ -1,7 +1,5 @@
 .popup {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.3s linear;
+  transition: visibility 0.3s, opacity 0.3s linear;
   font-family: 'Inter', Arial, sans-serif;
   position: fixed;
   width: 100%;
@@ -9,4 +7,10 @@
   background: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
 }
