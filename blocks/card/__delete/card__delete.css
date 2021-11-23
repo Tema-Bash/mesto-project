@@ -6,7 +6,7 @@
   padding: 0;
   height: 20px;
   border: 0;
-  background: url(../../../images/delete-icon.svg);
+  background: url(../../../images/delete-icon.svg) no-repeat;
   align-self: center;
   transition: background 0.3s;
   cursor: pointer;

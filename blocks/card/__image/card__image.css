@@ -4,3 +4,8 @@
   border-radius: 10px 10px 0 0;
   object-fit: cover;
 }
+
+.card__image:hover {
+  opacity: 80%;
+  cursor: pointer;
+}
