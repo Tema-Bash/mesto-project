@@ -1,3 +1,5 @@
+
+
 const initialCards = [
   {
     name: 'Долгая дорога',
@@ -130,3 +132,16 @@ imagePopup.addEventListener("click",() => {closePopup(imagePopup)})
 imagePopup.querySelector(".popup__container").addEventListener("click", (event) => {
   event.stopPropagation()
 })
+
+//go validirovatb
+
+import {enableValidation} from './validate.js'
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});  
