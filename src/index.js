@@ -136,7 +136,6 @@ imagePopup.querySelector(".popup__container").addEventListener("click", (event) 
 //go validirovatb
 
 import {enableValidation} from './validate.js'
-
 enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
