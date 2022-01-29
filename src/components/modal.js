@@ -1,5 +1,6 @@
-//работу модальных окон тут
+//работа модальных окон тут
 import {openPopup, closePopup, closeButton, clickOutClosePopup, closePopupOnEsc} from "./utils.js";
+import {handleSubmitNewCard, formAddNewCard} from "./card.js";
 
 const profilePopup = document.querySelector('.popup_type_profile');
 const newCardPopup = document.querySelector('.popup_type_cards');
@@ -13,21 +14,31 @@ const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
 closeButton(profilePopup);
-closeButton(newCardPopup);
-closeButton(imagePopup);
-closePopupOnEsc();
 clickOutClosePopup(profilePopup);
+
+closeButton(newCardPopup);
 clickOutClosePopup(newCardPopup);
+
+closeButton(imagePopup);
 clickOutClosePopup(imagePopup);
 
 //открываем попап и подтягиваем значения строк из верстки
-buttonEditProfile.addEventListener("click", () => {
-  openPopup(profilePopup)
-  profileNameInput.value = profileName.textContent;
-  profileAboutInput.value = profileAbout.textContent;
-})
+export const openPopupProfileUpdate = () => {
+  buttonEditProfile.addEventListener("click", () => {
+    openPopup(profilePopup);
+    profileNameInput.value = profileName.textContent;
+    profileAboutInput.value = profileAbout.textContent;
+  })
+}
 
-buttonAddNewCard.addEventListener("click", () => {openPopup(newCardPopup)});
+//открываем попап 
+export const openPopupNewCard = () => {
+  buttonAddNewCard.addEventListener("click", () => {
+    openPopup(newCardPopup);
+  });
+}
+
+
 //Сохраняем новые введеные данные в шапку профиля
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
@@ -35,7 +46,9 @@ const handleProfileFormSubmit = (evt) => {
   profileAbout.textContent = profileAboutInput.value;
   closePopup(profilePopup);
 }
+
 formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
+formAddNewCard.addEventListener('submit', handleSubmitNewCard);
 
 
 

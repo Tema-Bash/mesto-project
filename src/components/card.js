@@ -1,36 +1,11 @@
 //функции для работы с карточками проекта Mesto
 
-const initialCards = [
-  {
-    name: 'Долгая дорога',
-    link: 'images/card-list-trip.jpg'
-  },
-  {
-    name: 'Это электробус',
-    link: 'images/card-list-bus.jpg'
-  },
-  {
-    name: 'Водопад',
-    link: 'images/card-list-waterfall.jpg'
-  },
-  {
-    name: 'Ночные покатушки',
-    link: 'images/card-list-ride.jpg'
-  },
-  {
-    name: 'Загадочный парень',
-    link: 'images/card-list-car.jpg'
-  },
-  {
-    name: 'Кэбот Тауэр',
-    link: 'images/card-list-cabot.jpg'
-  }
-];
+
 import {openPopup, closePopup} from "./utils.js";
 
 const newCardPopup = document.querySelector('.popup_type_cards');
 const imagePopup = document.querySelector('.popup_type_image');
-const formAddNewCard = document.querySelector(".popup__form_type_cards");
+export const formAddNewCard = document.querySelector(".popup__form_type_cards");
 const cardNameInput = newCardPopup.querySelector('.popup__input_type_name');
 const cardLinkInput = newCardPopup.querySelector('.popup__input_type_link');
 const cardList = document.querySelector('.cards__list'); 
@@ -40,7 +15,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 function handleCardLikeClick (event) {
   event.target.classList.toggle('card__button_active')
 };
-//удалить карточку нажатием на корозинку
+//удалить карточку нажатием на корзинку
 function handleCardDeleteClick(event) {
   event.target.closest('.card').remove()
 };
@@ -72,16 +47,19 @@ function renderCard(cardList, cardCloneElement) {
   cardList.prepend(cardCloneElement)
 };
 
-//рендерим начальный массив
-initialCards.forEach(item => {
-  renderCard(cardList, createCard(item.link, item.name))
-});
-
 //рендерим новую карточку 
-const handleSubmitNewCard = (evt) => {
+export const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
   renderCard(cardList, createCard(cardLinkInput.value,cardNameInput.value))
   formAddNewCard.reset()
   closePopup(newCardPopup);
 };
-formAddNewCard.addEventListener('submit', handleSubmitNewCard);
+
+//рендерим начальный массив
+export const renderInitialArray =(initialCards)=>{ 
+  initialCards.forEach(item => {
+    renderCard(cardList, createCard(item.link, item.name))
+  });
+}
+
+
