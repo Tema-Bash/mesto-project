@@ -62,7 +62,7 @@
       <form class="popup__form popup__form_type_cards" action="#" method="POST" name="myForm">
         <input class="popup__input popup__input_type_name" id="formName" name="formName" type="text" placeholder="Название" required minlength="2" maxlength="40">
         <span id="error-formName" class="popup__error-message "></span>
-        <input class="popup__input popup__input_type_link" id="formLink" name="formLink" type="text" placeholder="Ссылка на картинку" required>
+        <input class="popup__input popup__input_type_link" id="formLink" name="formLink" type="url" placeholder="Ссылка на картинку" required>
         <span id="error-formLink" class="popup__error-message"></span>
         <button class="popup__button" aria-label="Создать" type="submit">Создать</button>
       </form>
@@ -78,5 +78,8 @@
   </div>
 
   <script type="module" src="./src/index.js"></script>
+  <script type="module" src="./src/modal.js"></script>
+  <script type="module" src="./src/card.js"></script>
+  <script type="module" src="./src/utils.js"></script>
 </body>
 </html>
