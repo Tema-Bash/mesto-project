@@ -25,7 +25,7 @@ const initialCards = [
     name: 'Кэбот Тауэр',
     link: 'images/card-list-cabot.jpg'
   }
-]; 
+];
 import {openPopup, closePopup} from "./utils.js";
 
 const newCardPopup = document.querySelector('.popup_type_cards');

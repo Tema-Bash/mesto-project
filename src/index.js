@@ -3,7 +3,7 @@
 
 //validirovatb
 
-import {enableValidation} from './validate.js'
+import {enableValidation} from './components/validate.js'
 
 enableValidation({
   formSelector: '.popup__form',
