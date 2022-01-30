@@ -1,30 +1,36 @@
 //инициализацию JS-кода, добавление слушателей и другие важные участки оставить тут
-
+import img1 from './images/card-list-trip.jpg';
+import img2 from './images/card-list-bus.jpg'
+import img3 from './images/card-list-waterfall.jpg'
+import img4 from './images/card-list-ride.jpg'
+import img5 from './images/card-list-car.jpg'
+import img6 from './images/card-list-cabot.jpg'
+import './pages/index.css';
 //рендерим начальные карточки
 const initialCards = [
   {
     name: 'Долгая дорога',
-    link: 'images/card-list-trip.jpg'
+    link: img1
   },
   {
     name: 'Это электробус',
-    link: 'images/card-list-bus.jpg'
+    link: img2
   },
   {
     name: 'Водопад',
-    link: 'images/card-list-waterfall.jpg'
+    link: img3
   },
   {
     name: 'Ночные покатушки',
-    link: 'images/card-list-ride.jpg'
+    link: img4
   },
   {
     name: 'Загадочный парень',
-    link: 'images/card-list-car.jpg'
+    link: img5
   },
   {
     name: 'Кэбот Тауэр',
-    link: 'images/card-list-cabot.jpg'
+    link: img6
   }
 ];
 import {renderInitialArray} from "./components/card.js";
