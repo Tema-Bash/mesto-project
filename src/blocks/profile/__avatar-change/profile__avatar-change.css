@@ -1,0 +1,20 @@
+.profile__avatar-change {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  margin-left: -50%;
+  margin-top: -50%;
+  width: 100%;
+  height: 100%;
+  background: url(../../../images/profile-avatar-edit-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transition: 0.3s linear;
+}
+
+.profile__avatar-change:hover {
+  opacity: 1;
+}
+

@@ -1,0 +1,8 @@
+.profile__avatar {
+  position: relative;
+  transition: 0.2s linear;
+}
+
+.profile__avatar:hover {
+  opacity: 0.2;
+}

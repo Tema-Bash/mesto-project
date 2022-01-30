@@ -30,15 +30,36 @@ function handleCardBigClick (event) {
 };
 
 //создаем карточку
-function createCard(link, title) {
+export const createCard = (name, link, likes, cardId, ownerId, currentUserId, handleLikeClick, handleDeleteClick) => {
   const cardCloneElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardCloneElementImage = cardCloneElement.querySelector('.card__image');
+  const likesCount = cardCloneElement.querySelector('.card__likes');
   cardCloneElementImage.src = link;
-  cardCloneElementImage.alt = title;
-  cardCloneElement.querySelector('.card__title').textContent = title;
-  cardCloneElement.querySelector('.card__button').addEventListener('click', handleCardLikeClick);
-  cardCloneElement.querySelector('.card__delete').addEventListener('click', handleCardDeleteClick);
+  cardCloneElementImage.alt = name;
+  likesCount.textContent = likes.length; //число лайков
+  cardCloneElement.querySelector('.card__title').textContent = name;
+
+  //отображение моих лайков
+  const likeIcon = cardCloneElement.querySelector('.card__button');
+  const isLiked = Boolean(likes.find(user => user._id === currentUserId));
+  if(isLiked){
+    likeIcon.classList.toggle('card__button_active')
+  }
+
   cardCloneElementImage.addEventListener('click', handleCardBigClick)
+                      //надо переписать эти функции
+  cardCloneElement.querySelector('.card__button').addEventListener('click', handleCardLikeClick);
+
+  //удаляем корзинку если карточка не наша
+  const deleteElement = cardCloneElement.querySelector('.card__delete');
+  const isOwner = ownerId === currentUserId;
+  if(!isOwner){
+    console.log(1)
+    deleteElement.classList.add('.card__delete_visibility_hidden');
+  };
+
+  cardCloneElement.querySelector('.card__delete').addEventListener('click', handleCardDeleteClick);
+  
   return cardCloneElement
 };
 
@@ -50,15 +71,15 @@ function renderCard(cardList, cardCloneElement) {
 //рендерим новую карточку 
 export const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
-  renderCard(cardList, createCard(cardLinkInput.value,cardNameInput.value))
+  renderCard(cardList, createCard(cardNameInput.value, cardLinkInput.value ))
   formAddNewCard.reset()
   closePopup(newCardPopup);
 };
 
 //рендерим начальный массив
-export const renderInitialArray =(initialCards)=>{ 
+export const renderInitialArray = (initialCards) => { 
   initialCards.forEach(item => {
-    renderCard(cardList, createCard(item.link, item.name))
+    renderCard(cardList, createCard(item.name, item.link, item.likes, item._id, item.owner._id, item.currentUserId))
   });
 }
 

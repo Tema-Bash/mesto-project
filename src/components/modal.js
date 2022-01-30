@@ -1,3 +1,4 @@
+
 //работа модальных окон тут
 import {openPopup, closePopup, closeButton, clickOutClosePopup, closePopupOnEsc} from "./utils.js";
 import {handleSubmitNewCard, formAddNewCard} from "./card.js";
@@ -12,6 +13,18 @@ const profileNameInput = profilePopup.querySelector('.popup__input_type_name');
 const profileAboutInput = profilePopup.querySelector('.popup__input_type_about');
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
+
+const profileAvatar = document.querySelector('.profile__avatar');
+const avatarPopup = document.querySelector('.popup_type_avatar');
+
+export const openPopupAvatarChange = () => {
+  profileAvatar.addEventListener("click", () => {
+    openPopup(avatarPopup);
+  })
+}
+closePopupOnEsc() //закрытие на Esc
+closeButton(avatarPopup);
+clickOutClosePopup(avatarPopup);
 
 closeButton(profilePopup);
 clickOutClosePopup(profilePopup);
@@ -44,6 +57,17 @@ const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   profileName.textContent = profileNameInput.value;
   profileAbout.textContent = profileAboutInput.value;
+  fetch('https://nomoreparties.co/v1/cohortId/users/me', {
+    method: 'PATCH',
+    headers: {
+      authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: profileNameInput.value,
+      about: profileAboutInput.value
+    })
+  }); 
   closePopup(profilePopup);
 }
 
