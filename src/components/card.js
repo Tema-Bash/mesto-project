@@ -12,9 +12,32 @@ const cardList = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('#card-template').content;  
 
 //поставить лайк
-function handleCardLikeClick (event) {
-  event.target.classList.toggle('card__button_active')
+function handleCardLikeClick (evt, cardId) {
+  if(evt.target.classList.contains('card__button_active')){
+    fetch(`https://nomoreparties.co/v1/plus-cohort-6/cards/likes/${cardId}`, {
+      method: 'DELETE',//убираем лайк
+      headers: {
+        authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => getResponseData(res))
+    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
+    .then((_) => evt.target.classList.toggle('card__button_active'));
+  }else {
+    fetch(`https://nomoreparties.co/v1/plus-cohort-6/cards/likes/${cardId}`, {
+      method: 'PUT',//ставим лайк классной карточке
+      headers: {
+        authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => getResponseData(res))
+    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
+    .then((_) => evt.target.classList.toggle('card__button_active'));
+  }
 };
+
 //удалить карточку нажатием на корзинку
 function handleCardDeleteClick(evt, cardId) {
   fetch(`https://nomoreparties.co/v1/plus-cohort-6/cards/${cardId}`, {
@@ -53,8 +76,7 @@ export const createCard = (name, link, likes, cardId, ownerId, currentUserId, ha
   }
 
   cardCloneElementImage.addEventListener('click', handleCardBigClick)
-                      //надо переписать эти функции
-  cardCloneElement.querySelector('.card__button').addEventListener('click', handleCardLikeClick);
+  cardCloneElement.querySelector('.card__button').addEventListener('click', (evt) => handleCardLikeClick(evt, cardId));
 
   //удаляем корзинку если карточка не наша
   const deleteElement = cardCloneElement.querySelector('.card__delete');
@@ -62,9 +84,7 @@ export const createCard = (name, link, likes, cardId, ownerId, currentUserId, ha
   if(!isOwner){
     deleteElement.classList.add('card__delete_visibility_hidden');
   };
-
   cardCloneElement.querySelector('.card__delete').addEventListener('click',(evt)=> handleCardDeleteClick(evt, cardId));
-  
   return cardCloneElement
 };
 
@@ -74,8 +94,10 @@ export function renderCard(cardList, cardCloneElement) {
 };
 //рендерим новую карточку 
 import {getResponseData} from './../index.js'
+const submitCardButton = newCardPopup.querySelector('.popup__button');
 export const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
+  submitButton.textContent = "Сохранение...";
   fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
     method: 'POST',
     headers: {
@@ -89,11 +111,11 @@ export const handleSubmitNewCard = (evt) => {
   })
   .then(res => getResponseData(res))
   .then((user)=> {
-    console.log(user)
-    renderCard(cardList, createCard(user.name, user.link, [], user._id))
-  });
-  formAddNewCard.reset()
-  closePopup(newCardPopup);
+    renderCard(cardList, createCard(user.name, user.link, [], user._id));
+    formAddNewCard.reset();
+    closePopup(newCardPopup);
+  })
+  .finally(() => {submitCardButton.textContent = "Создать"})
 };
 
 
@@ -101,7 +123,7 @@ export const handleSubmitNewCard = (evt) => {
 import {userId} from './profile.js'
 export const renderInitialArray = (initialCards) => { 
   const currentUserId = userId;
-  initialCards.forEach(item => {
+  initialCards.reverse().forEach(item => {
     renderCard(cardList, createCard(item.name, item.link, item.likes, item._id, item.owner._id, currentUserId))
   });
 }

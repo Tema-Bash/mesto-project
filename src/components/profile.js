@@ -1,6 +1,6 @@
 //ВСЁ ЧТО НИЖЕ В ПРОФИЛЬ.ЖС
 const userName = document.querySelector('.profile__name');
-const userAvatarImg = document.querySelector('.profile__image');
+export const userAvatarImg = document.querySelector('.profile__image');
 const userAbout = document.querySelector('.profile__about');
 
 export let userId;

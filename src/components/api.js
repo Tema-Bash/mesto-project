@@ -1,14 +1,7 @@
-//запрос на сервер с готправкой данных
-export const setData = (data) => {
-  return fetch(`${config.baseUrl}/some/query`, {
-      method: 'POST',
-      headers: config.headers,
-      body: JSON.stringify(data)
-    })
-    .then(res => getResponseData(res))
-    .then((result) => {
-      console.log(result);
-    }); 
-};
-
-
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-6',
+  headers: {
+    authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
+    'Content-Type': 'application/json'
+  }
+}
