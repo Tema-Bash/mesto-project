@@ -42,21 +42,11 @@ const popupInputTypeLink = avatarPopup.querySelector('.popup__input_type_link');
 const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
 
 const submitAvatarButton = formElementAvatar.querySelector('.popup__button');
-console.log(submitAvatarButton)
 //сохраняем новую аватарку
 const handleAvaraeFormSubmit = (evt) => {
   evt.preventDefault();
   submitAvatarButton.textContent = "Сохранение..."
-  fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me/avatar', {
-    method: 'PATCH',
-    headers: {
-      authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      avatar: popupInputTypeLink.value
-    })
-  })
+  sendNewAvatar(popupInputTypeLink.value)
   .then(() => {
     userAvatarImg.src = popupInputTypeLink.value;
     formElementAvatar.reset();
@@ -90,18 +80,8 @@ const handleProfileFormSubmit = (evt) => {
   submitProfileButton.textContent = "Сохранение..."
   profileName.textContent = profileNameInput.value;
   profileAbout.textContent = profileAboutInput.value;
-   //ФЕТЧ В АПИ
-  fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
-    method: 'PATCH',
-    headers: {
-      authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: profileNameInput.value,
-      about: profileAboutInput.value
-    })
-  }).then(() => {closePopup(profilePopup);})
+  sendProfileData(profileNameInput.value,profileAboutInput.value)
+  .then(() => {closePopup(profilePopup);})
   .finally(() => {submitProfileButton.textContent = "Сохранить"})
 }
 
@@ -110,4 +90,5 @@ formElementProfile.addEventListener('submit', handleProfileFormSubmit);
 
 
 import {handleSubmitNewCard} from "./card.js";
+import {sendNewAvatar, sendProfileData} from "./api.js";
 formAddNewCard.addEventListener('submit', handleSubmitNewCard);

@@ -1,7 +1,7 @@
 //функции для работы с карточками проекта Mesto
-
-
 import {openPopup, closePopup} from "./utils.js";
+import {deleteLike, putLike, deleteCard, cardRenderServer} from './api.js';
+import {userId} from './profile.js'
 
 const newCardPopup = document.querySelector('.popup_type_cards');
 const imagePopup = document.querySelector('.popup_type_image');
@@ -10,29 +10,16 @@ const cardNameInput = newCardPopup.querySelector('.popup__input_type_name');
 const cardLinkInput = newCardPopup.querySelector('.popup__input_type_link');
 const cardList = document.querySelector('.cards__list'); 
 const cardTemplate = document.querySelector('#card-template').content;  
-
+const submitCardButton = newCardPopup.querySelector('.popup__button');
 //поставить лайк
+
 function handleCardLikeClick (evt, cardId) {
   if(evt.target.classList.contains('card__button_active')){
-    fetch(`https://nomoreparties.co/v1/plus-cohort-6/cards/likes/${cardId}`, {
-      method: 'DELETE',//убираем лайк
-      headers: {
-        authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(res => getResponseData(res))
+    deleteLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
     .then((_) => evt.target.classList.toggle('card__button_active'));
   }else {
-    fetch(`https://nomoreparties.co/v1/plus-cohort-6/cards/likes/${cardId}`, {
-      method: 'PUT',//ставим лайк классной карточке
-      headers: {
-        authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(res => getResponseData(res))
+    putLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
     .then((_) => evt.target.classList.toggle('card__button_active'));
   }
@@ -40,13 +27,8 @@ function handleCardLikeClick (evt, cardId) {
 
 //удалить карточку нажатием на корзинку
 function handleCardDeleteClick(evt, cardId) {
-  fetch(`https://nomoreparties.co/v1/plus-cohort-6/cards/${cardId}`, {
-    method: 'DELETE',
-    headers: {
-      authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-      'Content-Type': 'application/json'
-    },
-  }).then((_) => evt.target.closest('.card').remove());
+  deleteCard(cardId)
+  .then((_) => evt.target.closest('.card').remove());
 };
 
 //открываем попап конкретной карточки
@@ -92,24 +74,13 @@ export const createCard = (name, link, likes, cardId, ownerId, currentUserId, ha
 export function renderCard(cardList, cardCloneElement) {
   cardList.prepend(cardCloneElement)
 };
+
 //рендерим новую карточку 
-import {getResponseData} from './../index.js'
-const submitCardButton = newCardPopup.querySelector('.popup__button');
+
 export const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
-  submitButton.textContent = "Сохранение...";
-  fetch('https://nomoreparties.co/v1/plus-cohort-6/cards', {
-    method: 'POST',
-    headers: {
-      authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: cardNameInput.value,
-      link: cardLinkInput.value
-    })
-  })
-  .then(res => getResponseData(res))
+  submitCardButton.textContent = "Сохранение...";
+  cardRenderServer(cardNameInput.value, cardLinkInput.value)
   .then((user)=> {
     renderCard(cardList, createCard(user.name, user.link, [], user._id));
     formAddNewCard.reset();
@@ -120,7 +91,6 @@ export const handleSubmitNewCard = (evt) => {
 
 
 //рендерим начальный массив
-import {userId} from './profile.js'
 export const renderInitialArray = (initialCards) => { 
   const currentUserId = userId;
   initialCards.reverse().forEach(item => {

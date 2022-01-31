@@ -1,13 +1,3 @@
-//функциональность валидации форм
-/*
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-*/
-
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {return !inputElement.validity.valid})
 };
@@ -31,20 +21,20 @@ const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiv
   }
 };
 
-/*4 LVL */
+
 const showInputError = (inputElement, inputErrorClass, errorElement, errorClass, errorMessage) => {
   inputElement.classList.add(inputErrorClass);
   errorElement.classList.add(errorClass);
   errorElement.textContent = errorMessage;
 };
-/*4 LVL */
+
 const hideInputError = (inputElement, inputErrorClass, errorElement, errorClass) => {
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
   errorElement.textContent = "";
 };
 
-/* 3 LVL*/
+
 const checkInputValidity=(formElement, inputElement, inputErrorClass, errorClass)=>{
   const errorElement = formElement.querySelector(`#error-${inputElement.id}`)
   if(inputElement.validity.valid){
@@ -56,7 +46,7 @@ const checkInputValidity=(formElement, inputElement, inputErrorClass, errorClass
   }
 }
 
-/* 2 LVL*/
+
 const setEventListeners=(formElement, {inputSelector, inputErrorClass, errorClass,submitButtonSelector, inactiveButtonClass}) => {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
     inputList.forEach(inputElement => {
@@ -68,7 +58,7 @@ const setEventListeners=(formElement, {inputSelector, inputErrorClass, errorClas
     toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
 }
 
-/* 1 LVL*/ 
+
 export function enableValidation({formSelector, ...rest}){
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach(formElement =>{

@@ -1,4 +1,3 @@
-//ВСЁ ЧТО НИЖЕ В ПРОФИЛЬ.ЖС
 const userName = document.querySelector('.profile__name');
 export const userAvatarImg = document.querySelector('.profile__image');
 const userAbout = document.querySelector('.profile__about');
@@ -11,3 +10,4 @@ export const initialProfileRender = (UserData) => {
   userAbout.textContent = UserData.about;
   userId = UserData._id;
 };
+
