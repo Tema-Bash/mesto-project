@@ -1,7 +1,7 @@
 
 //работа модальных окон тут
 import {openPopup, closePopup, closeButton, clickOutClosePopup, closePopupOnEsc} from "./utils.js";
-import {handleSubmitNewCard, formAddNewCard} from "./card.js";
+import {formAddNewCard,renderCard, cardList, createCard} from "./card.js";
 
 const profilePopup = document.querySelector('.popup_type_profile');
 const newCardPopup = document.querySelector('.popup_type_cards');
@@ -57,7 +57,7 @@ const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   profileName.textContent = profileNameInput.value;
   profileAbout.textContent = profileAboutInput.value;
-  fetch('https://nomoreparties.co/v1/cohortId/users/me', {
+  fetch('https://nomoreparties.co/v1/plus-cohort-6/users/me', {
     method: 'PATCH',
     headers: {
       authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
@@ -71,9 +71,9 @@ const handleProfileFormSubmit = (evt) => {
   closePopup(profilePopup);
 }
 
-formElementProfile.addEventListener('submit', handleProfileFormSubmit); 
+formElementProfile.addEventListener('submit', handleProfileFormSubmit);
+
+
+
+import {handleSubmitNewCard} from "./card.js";
 formAddNewCard.addEventListener('submit', handleSubmitNewCard);
-
-
-
-
