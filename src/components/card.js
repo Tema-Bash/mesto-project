@@ -17,18 +17,21 @@ function handleCardLikeClick (evt, cardId) {
   if(evt.target.classList.contains('card__button_active')){
     deleteLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
-    .then((_) => evt.target.classList.toggle('card__button_active'));
+    .then((_) => evt.target.classList.toggle('card__button_active'))
+    .catch((res)=>{alert(res)}); 
   }else {
     putLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
-    .then((_) => evt.target.classList.toggle('card__button_active'));
+    .then((_) => evt.target.classList.toggle('card__button_active'))
+    .catch((res)=>{alert(res)});
   }
 };
 
 //удалить карточку нажатием на корзинку
 function handleCardDeleteClick(evt, cardId) {
   deleteCard(cardId)
-  .then((_) => evt.target.closest('.card').remove());
+  .then((_) => evt.target.closest('.card').remove())
+  .catch((res)=>{alert(res)});
 };
 
 //открываем попап конкретной карточки
@@ -86,6 +89,7 @@ export const handleSubmitNewCard = (evt) => {
     formAddNewCard.reset();
     closePopup(newCardPopup);
   })
+  .catch((res)=>{alert(res)})
   .finally(() => {submitCardButton.textContent = "Создать"})
 };
 

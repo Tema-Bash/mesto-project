@@ -17,7 +17,6 @@ const profileAbout = document.querySelector(".profile__about");
 const profileAvatar = document.querySelector('.profile__avatar');
 const avatarPopup = document.querySelector('.popup_type_avatar');
 
-closePopupOnEsc() //закрытие на Esc
 closeButton(avatarPopup);
 clickOutClosePopup(avatarPopup);
 
@@ -52,6 +51,7 @@ const handleAvaraeFormSubmit = (evt) => {
     formElementAvatar.reset();
     closePopup(avatarPopup)
   })
+  .catch((res)=>{alert(res)})
   .finally(() => {submitAvatarButton.textContent = "Сохранить"})
 }
 
@@ -81,7 +81,8 @@ const handleProfileFormSubmit = (evt) => {
   profileName.textContent = profileNameInput.value;
   profileAbout.textContent = profileAboutInput.value;
   sendProfileData(profileNameInput.value,profileAboutInput.value)
-  .then(() => {closePopup(profilePopup);})
+  .then(() => {closePopup(profilePopup)})
+  .catch((res)=>{alert(res)})
   .finally(() => {submitProfileButton.textContent = "Сохранить"})
 }
 

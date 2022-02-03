@@ -3,9 +3,11 @@
 //функции открытия закрытия попапа
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupOnEsc); 
 }
 export const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closePopupOnEsc);
 }
 //закрытие на "крестик"
 export const closeButton = (popup) => {
@@ -21,14 +23,10 @@ export const clickOutClosePopup = (popup) => {
 }
 
 //закрываем попапы на Esc
-export const closePopupOnEsc = () => {
-  document.addEventListener('keyup', (btn) => {
+
+function closePopupOnEsc(evt) {
+  if (evt.key == 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
-    if (btn.key == 'Escape' && popupOpened) {
-      closePopup(popupOpened);
-    }
-  });  
+    closePopup(popupOpened);
+  }
 }
-
-
-
