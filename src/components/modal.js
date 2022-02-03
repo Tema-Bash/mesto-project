@@ -64,12 +64,13 @@ export const openPopupProfileUpdate = () => {
     profileNameInput.value = profileName.textContent;
     profileAboutInput.value = profileAbout.textContent;
   })
-}
-
+};
+import {disableButton} from './validate.js'
 //открываем попап новой карточки
 export const openPopupNewCard = () => {
   buttonAddNewCard.addEventListener("click", () => {
     openPopup(newCardPopup);
+    toggleButtonState();
   });
 }
 

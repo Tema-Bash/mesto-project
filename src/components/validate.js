@@ -12,7 +12,7 @@ const disableButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.disabled = true;
 };
 
-const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiveButtonClass) => {
+export const toggleButtonState = (formElement, inputList, submitButtonSelector, inactiveButtonClass) => {
   const buttonElement = formElement.querySelector(submitButtonSelector);
   if(hasInvalidInput(inputList)){
     disableButton(buttonElement, inactiveButtonClass);
