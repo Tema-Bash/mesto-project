@@ -65,7 +65,8 @@ export const openPopupProfileUpdate = () => {
     profileAboutInput.value = profileAbout.textContent;
   })
 };
-import {disableButton} from './validate.js'
+
+import {toggleButtonState} from './validate.js'
 //открываем попап новой карточки
 export const openPopupNewCard = () => {
   buttonAddNewCard.addEventListener("click", () => {
