@@ -1,10 +1,10 @@
 //инициализацию JS-кода, добавление слушателей и другие важные участки оставить тут
-import './pages/index.css';
-import {enableValidation} from './components/validate.js';
-import {openPopupNewCard, openPopupProfileUpdate, openPopupAvatarChange} from "./components/modal.js"
-import {renderInitialArray} from "./components/card.js";
-import {initialProfileRender} from './components/profile.js';
-import {getAppInfo} from './components/api.js';
+import './../pages/index.css';
+import {enableValidation} from './validate.js';
+import {openPopupNewCard, openPopupProfileUpdate, openPopupAvatarChange} from "./modal.js"
+import {renderInitialArray} from "./card.js";
+import {initialProfileRender} from './profile.js';
+import {getAppInfo} from './api.js';
 
 //валидируем
 export const options = {

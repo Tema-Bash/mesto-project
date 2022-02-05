@@ -6,7 +6,7 @@ import {handleSubmitNewCard} from "./card.js";
 import {sendNewAvatar, sendProfileData} from "./api.js";
 import {disableButton} from './validate.js'
 import {userAvatarImg} from './profile.js'
-import {options} from './../index.js'
+import {options} from './index.js'
 
 const profilePopup = document.querySelector('.popup_type_profile');
 const newCardPopup = document.querySelector('.popup_type_cards');
@@ -31,8 +31,6 @@ export const openPopupAvatarChange = () => {
   })
 }
 
-
-
 //сохраняем новую аватарку
 const handleAvaraeFormSubmit = (evt) => {
   evt.preventDefault();
@@ -47,8 +45,6 @@ const handleAvaraeFormSubmit = (evt) => {
   .catch((res)=>{alert(res)})
   .finally(() => {submitAvatarButton.textContent = "Сохранить"})
 }
-
-avatarPopup.addEventListener('submit', handleAvaraeFormSubmit);
 
 //открываем попап и подтягиваем значения строк из верстки
 export const openPopupProfileUpdate = () => {
@@ -83,5 +79,5 @@ const handleProfileFormSubmit = (evt) => {
 }
 
 formElementProfile.addEventListener('submit', handleProfileFormSubmit);
-
+avatarPopup.addEventListener('submit', handleAvaraeFormSubmit);
 formAddNewCard.addEventListener('submit', handleSubmitNewCard);

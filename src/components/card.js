@@ -1,8 +1,9 @@
 //функции для работы с карточками проекта Mesto
-import {openPopup, closePopup} from "./utils.js";
+import {openPopup,closePopup} from "./utils.js";
 import {deleteLike, putLike, deleteCard, cardRenderServer} from './api.js';
 import {userId} from './profile.js'
-
+import {disableButton} from './validate.js'
+import {options} from './index.js'
 
 const newCardPopup = document.querySelector('.popup_type_cards');
 const imagePopup = document.querySelector('.popup_type_image');
@@ -88,6 +89,7 @@ export const handleSubmitNewCard = (evt) => {
   .then((user)=> {
     renderCard(cardList, createCard(user.name, user.link, [], user._id));
     formAddNewCard.reset();
+    disableButton(submitCardButton, options.inactiveButtonClass)
     closePopup(newCardPopup);
   })
   .catch((res)=>{alert(res)})
