@@ -1,11 +1,15 @@
 
 //работа модальных окон тут
-import {openPopup, closePopup, closeButton, clickOutClosePopup, closePopupOnEsc} from "./utils.js";
-import {formAddNewCard,renderCard, cardList, createCard} from "./card.js";
+import {openPopup, closePopup} from "./utils.js";
+import {formAddNewCard} from "./card.js";
+import {handleSubmitNewCard} from "./card.js";
+import {sendNewAvatar, sendProfileData} from "./api.js";
+import {disableButton} from './validate.js'
+import {userAvatarImg} from './profile.js'
+import {options} from './../index.js'
 
 const profilePopup = document.querySelector('.popup_type_profile');
 const newCardPopup = document.querySelector('.popup_type_cards');
-const imagePopup = document.querySelector('.popup_type_image');
 const buttonEditProfile = document.querySelector(".profile__edit");
 const buttonAddNewCard = document.querySelector(".profile__add");
 const formElementProfile = document.querySelector(".popup__form_type_profile");
@@ -13,21 +17,12 @@ const profileNameInput = profilePopup.querySelector('.popup__input_type_name');
 const profileAboutInput = profilePopup.querySelector('.popup__input_type_about');
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
-
 const profileAvatar = document.querySelector('.profile__avatar');
 const avatarPopup = document.querySelector('.popup_type_avatar');
-
-closeButton(avatarPopup);
-clickOutClosePopup(avatarPopup);
-
-closeButton(profilePopup);
-clickOutClosePopup(profilePopup);
-
-closeButton(newCardPopup);
-clickOutClosePopup(newCardPopup);
-
-closeButton(imagePopup);
-clickOutClosePopup(imagePopup);
+const popupInputTypeLink = avatarPopup.querySelector('.popup__input_type_link'); 
+const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
+const submitAvatarButton = formElementAvatar.querySelector('.popup__button');
+const submitProfileButton = formElementProfile.querySelector('.popup__button');
 
 //открываем попап смены автарки
 export const openPopupAvatarChange = () => {
@@ -36,13 +31,8 @@ export const openPopupAvatarChange = () => {
   })
 }
 
-import {disableButton} from './validate.js'
-import {userAvatarImg} from './profile.js'
-import {options} from './../index.js'
-const popupInputTypeLink = avatarPopup.querySelector('.popup__input_type_link'); 
-const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
 
-const submitAvatarButton = formElementAvatar.querySelector('.popup__button');
+
 //сохраняем новую аватарку
 const handleAvaraeFormSubmit = (evt) => {
   evt.preventDefault();
@@ -51,7 +41,6 @@ const handleAvaraeFormSubmit = (evt) => {
   .then(() => {
     userAvatarImg.src = popupInputTypeLink.value;
     formElementAvatar.reset();
-    console.log(submitAvatarButton)
     disableButton(submitAvatarButton, options.inactiveButtonClass)
     closePopup(avatarPopup)
   })
@@ -79,7 +68,6 @@ export const openPopupNewCard = () => {
 }
 
 //Сохраняем новые введеные данные в шапку профиля
-const submitProfileButton = formElementProfile.querySelector('.popup__button');
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   submitProfileButton.textContent = "Сохранение..."
@@ -96,8 +84,4 @@ const handleProfileFormSubmit = (evt) => {
 
 formElementProfile.addEventListener('submit', handleProfileFormSubmit);
 
-
-
-import {handleSubmitNewCard} from "./card.js";
-import {sendNewAvatar, sendProfileData} from "./api.js";
 formAddNewCard.addEventListener('submit', handleSubmitNewCard);

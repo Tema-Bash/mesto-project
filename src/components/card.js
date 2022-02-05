@@ -14,8 +14,8 @@ const cardTemplate = document.querySelector('#card-template').content;
 const submitCardButton = newCardPopup.querySelector('.popup__button');
 const imagePopupImage = imagePopup.querySelector('.popup__image');
 const imageCaption = imagePopup.querySelector('.popup__name');
-//поставить лайк
 
+//поставить лайк
 function handleCardLikeClick (evt, cardId) {
   if(evt.target.classList.contains('card__button_active')){
     deleteLike(cardId)
@@ -46,7 +46,7 @@ function handleCardBigClick (event) {
 };
 
 //создаем карточку
-export const createCard = (name, link, likes, cardId, ownerId, currentUserId, handleCardLikeClick, handleCardDeleteClick) => {
+export const createCard = (name, link, likes, cardId, ownerId, currentUserId, handleLikeClick, handleDeleteClick) => {
   const cardCloneElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardCloneElementImage = cardCloneElement.querySelector('.card__image');
   const likesCount = cardCloneElement.querySelector('.card__likes');
@@ -81,7 +81,6 @@ export function renderCard(cardList, cardCloneElement) {
 };
 
 //рендерим новую карточку 
-
 export const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
   submitCardButton.textContent = "Сохранение...";
