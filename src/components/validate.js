@@ -7,7 +7,7 @@ const enableButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.disabled = false;
 };
 
-const disableButton = (buttonElement, inactiveButtonClass) => {
+export const disableButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.add(inactiveButtonClass);
   buttonElement.disabled = true;
 };

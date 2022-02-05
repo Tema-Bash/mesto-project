@@ -3,6 +3,7 @@ import {openPopup, closePopup} from "./utils.js";
 import {deleteLike, putLike, deleteCard, cardRenderServer} from './api.js';
 import {userId} from './profile.js'
 
+
 const newCardPopup = document.querySelector('.popup_type_cards');
 const imagePopup = document.querySelector('.popup_type_image');
 export const formAddNewCard = document.querySelector(".popup__form_type_cards");
@@ -11,6 +12,8 @@ const cardLinkInput = newCardPopup.querySelector('.popup__input_type_link');
 const cardList = document.querySelector('.cards__list'); 
 const cardTemplate = document.querySelector('#card-template').content;  
 const submitCardButton = newCardPopup.querySelector('.popup__button');
+const imagePopupImage = imagePopup.querySelector('.popup__image');
+const imageCaption = imagePopup.querySelector('.popup__name');
 //поставить лайк
 
 function handleCardLikeClick (evt, cardId) {
@@ -37,14 +40,13 @@ function handleCardDeleteClick(evt, cardId) {
 //открываем попап конкретной карточки
 function handleCardBigClick (event) {
   openPopup(imagePopup);
-  const imagePopupImage = imagePopup.querySelector('.popup__image');
   imagePopupImage.src = event.target.src;
   imagePopupImage.alt = event.target.alt;
-  imagePopup.querySelector('.popup__name').textContent = event.target.closest('.card').querySelector('.card__title').textContent;
+  imageCaption.textContent = event.target.alt;
 };
 
 //создаем карточку
-export const createCard = (name, link, likes, cardId, ownerId, currentUserId, handleLikeClick, handleDeleteClick) => {
+export const createCard = (name, link, likes, cardId, ownerId, currentUserId, handleCardLikeClick, handleCardDeleteClick) => {
   const cardCloneElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardCloneElementImage = cardCloneElement.querySelector('.card__image');
   const likesCount = cardCloneElement.querySelector('.card__likes');

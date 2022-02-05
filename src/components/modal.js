@@ -36,7 +36,9 @@ export const openPopupAvatarChange = () => {
   })
 }
 
+import {disableButton} from './validate.js'
 import {userAvatarImg} from './profile.js'
+import {options} from './../index.js'
 const popupInputTypeLink = avatarPopup.querySelector('.popup__input_type_link'); 
 const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
 
@@ -49,6 +51,8 @@ const handleAvaraeFormSubmit = (evt) => {
   .then(() => {
     userAvatarImg.src = popupInputTypeLink.value;
     formElementAvatar.reset();
+    console.log(submitAvatarButton)
+    disableButton(submitAvatarButton, options.inactiveButtonClass)
     closePopup(avatarPopup)
   })
   .catch((res)=>{alert(res)})
@@ -66,12 +70,11 @@ export const openPopupProfileUpdate = () => {
   })
 };
 
-import {toggleButtonState} from './validate.js'
+
 //открываем попап новой карточки
 export const openPopupNewCard = () => {
   buttonAddNewCard.addEventListener("click", () => {
     openPopup(newCardPopup);
-    toggleButtonState();
   });
 }
 
@@ -80,10 +83,13 @@ const submitProfileButton = formElementProfile.querySelector('.popup__button');
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   submitProfileButton.textContent = "Сохранение..."
-  profileName.textContent = profileNameInput.value;
-  profileAbout.textContent = profileAboutInput.value;
+
   sendProfileData(profileNameInput.value,profileAboutInput.value)
-  .then(() => {closePopup(profilePopup)})
+  .then(() => {
+    profileName.textContent = profileNameInput.value;
+    profileAbout.textContent = profileAboutInput.value;
+    closePopup(profilePopup);
+  })
   .catch((res)=>{alert(res)})
   .finally(() => {submitProfileButton.textContent = "Сохранить"})
 }
