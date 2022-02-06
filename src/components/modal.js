@@ -1,8 +1,7 @@
 
 //работа модальных окон тут
 import {openPopup, closePopup} from "./utils.js";
-import {formAddNewCard} from "./card.js";
-import {handleSubmitNewCard} from "./card.js";
+import {formAddNewCard,handleSubmitNewCard} from "./card.js";
 import {sendNewAvatar, sendProfileData} from "./api.js";
 import {disableButton} from './validate.js'
 import {userAvatarImg} from './profile.js'

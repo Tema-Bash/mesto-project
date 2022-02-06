@@ -3,12 +3,13 @@
 //функции открытия закрытия попапа
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupOnEsc); 
 }
 export const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
 }
 
-const popups = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
       //закрываем по оверлею(магия)
@@ -21,3 +22,10 @@ popups.forEach((popup) => {
         }
     })
 })
+
+function closePopupOnEsc(evt) {
+  if (evt.key == 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
