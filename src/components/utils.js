@@ -7,6 +7,7 @@ export const openPopup = (popup) => {
 }
 export const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closePopupOnEsc);
 }
 
 const popups = document.querySelectorAll('.popup');
