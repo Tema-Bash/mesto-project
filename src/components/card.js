@@ -1,30 +1,30 @@
 //функции для работы с карточками проекта Mesto
-import {openPopup,closePopup} from "./utils.js";
-import {deleteLike, putLike, deleteCard, cardRenderServer} from './api.js';
+import {openPopup,closePopup} from "../utils/utils.js";
+import {api} from '../pages/index.js';
 import {userId} from './profile.js'
 import {disableButton} from './validate.js'
-import {options} from './index.js'
-
-const newCardPopup = document.querySelector('.popup_type_cards');
-const imagePopup = document.querySelector('.popup_type_image');
-export const formAddNewCard = document.querySelector(".popup__form_type_cards");
-const cardNameInput = newCardPopup.querySelector('.popup__input_type_name');
-const cardLinkInput = newCardPopup.querySelector('.popup__input_type_link');
-const cardList = document.querySelector('.cards__list'); 
-const cardTemplate = document.querySelector('#card-template').content;  
-const submitCardButton = newCardPopup.querySelector('.popup__button');
-const imagePopupImage = imagePopup.querySelector('.popup__image');
-const imageCaption = imagePopup.querySelector('.popup__name');
+import {
+options,
+newCardPopup,
+imagePopup,
+formAddNewCard,
+cardNameInput,
+cardLinkInput,
+cardList,
+cardTemplate,
+submitCardButton,
+imagePopupImage,
+imageCaption } from '../utils/constants.js';
 
 //поставить лайк
 function handleCardLikeClick (evt, cardId) {
   if(evt.target.classList.contains('card__button_active')){
-    deleteLike(cardId)
+    api.deleteLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
     .then((_) => evt.target.classList.toggle('card__button_active'))
     .catch((res)=>{alert(res)}); 
   }else {
-    putLike(cardId)
+    api.putLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
     .then((_) => evt.target.classList.toggle('card__button_active'))
     .catch((res)=>{alert(res)});
@@ -33,7 +33,7 @@ function handleCardLikeClick (evt, cardId) {
 
 //удалить карточку нажатием на корзинку
 function handleCardDeleteClick(evt, cardId) {
-  deleteCard(cardId)
+  api.deleteCard(cardId)
   .then((_) => evt.target.closest('.card').remove())
   .catch((res)=>{alert(res)});
 };
@@ -85,7 +85,7 @@ export function renderCard(cardList, cardCloneElement) {
 export const handleSubmitNewCard = (evt) => {
   evt.preventDefault();
   submitCardButton.textContent = "Сохранение...";
-  cardRenderServer(cardNameInput.value, cardLinkInput.value)
+  api.cardRenderServer(cardNameInput.value, cardLinkInput.value)
   .then((user)=> {
     renderCard(cardList, createCard(user.name, user.link, [], user._id));
     formAddNewCard.reset();

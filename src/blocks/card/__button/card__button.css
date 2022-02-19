@@ -10,5 +10,6 @@
 }
 
 .card__button:hover {
-  background: url(../../../images/card-heart-hover.svg);
+  cursor: pointer;
+  opacity: .5;
 }

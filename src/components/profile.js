@@ -1,7 +1,7 @@
-const userName = document.querySelector('.profile__name');
-export const userAvatarImg = document.querySelector('.profile__image');
-const userAbout = document.querySelector('.profile__about');
-
+import {
+userName,
+userAvatarImg,
+userAbout } from '../utils/constants.js';
 export let userId;
 
 export const initialProfileRender = (UserData) => {

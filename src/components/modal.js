@@ -1,27 +1,28 @@
 
 //работа модальных окон тут
-import {openPopup, closePopup} from "./utils.js";
-import {formAddNewCard,handleSubmitNewCard} from "./card.js";
-import {sendNewAvatar, sendProfileData} from "./api.js";
-import {disableButton} from './validate.js'
-import {userAvatarImg} from './profile.js'
-import {options} from './index.js'
-
-const profilePopup = document.querySelector('.popup_type_profile');
-const newCardPopup = document.querySelector('.popup_type_cards');
-const buttonEditProfile = document.querySelector(".profile__edit");
-const buttonAddNewCard = document.querySelector(".profile__add");
-const formElementProfile = document.querySelector(".popup__form_type_profile");
-const profileNameInput = profilePopup.querySelector('.popup__input_type_name');
-const profileAboutInput = profilePopup.querySelector('.popup__input_type_about');
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__about");
-const profileAvatar = document.querySelector('.profile__avatar');
-const avatarPopup = document.querySelector('.popup_type_avatar');
-const popupInputTypeLink = avatarPopup.querySelector('.popup__input_type_link'); 
-const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
-const submitAvatarButton = formElementAvatar.querySelector('.popup__button');
-const submitProfileButton = formElementProfile.querySelector('.popup__button');
+import {openPopup, closePopup} from "../utils/utils.js";
+import {handleSubmitNewCard} from "./card.js";
+import {api} from '../pages/index.js';
+import {disableButton} from './validate.js';
+import {
+options, 
+profilePopup,
+newCardPopup,
+buttonEditProfile,
+buttonAddNewCard,
+formElementProfile,
+profileNameInput,
+profileAboutInput,
+profileName,
+profileAbout,
+profileAvatar,
+avatarPopup,
+popupInputTypeLink,
+formElementAvatar,
+submitAvatarButton,
+submitProfileButton,
+formAddNewCard,
+userAvatarImg } from '../utils/constants.js';
 
 //открываем попап смены автарки
 export const openPopupAvatarChange = () => {
@@ -34,7 +35,7 @@ export const openPopupAvatarChange = () => {
 const handleAvaraeFormSubmit = (evt) => {
   evt.preventDefault();
   submitAvatarButton.textContent = "Сохранение..."
-  sendNewAvatar(popupInputTypeLink.value)
+  api.sendNewAvatar(popupInputTypeLink.value)
   .then(() => {
     userAvatarImg.src = popupInputTypeLink.value;
     formElementAvatar.reset();
@@ -67,7 +68,7 @@ const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   submitProfileButton.textContent = "Сохранение..."
 
-  sendProfileData(profileNameInput.value,profileAboutInput.value)
+  api.sendProfileData(profileNameInput.value,profileAboutInput.value)
   .then(() => {
     profileName.textContent = profileNameInput.value;
     profileAbout.textContent = profileAboutInput.value;

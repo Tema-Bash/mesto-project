@@ -1,4 +1,5 @@
 //утилитарные функции, которые используются в работе сразу нескольких других функций
+import {popups} from '../utils/constants.js';
 
 //функции открытия закрытия попапа
 export const openPopup = (popup) => {
@@ -10,7 +11,6 @@ export const closePopup = (popup) => {
   document.removeEventListener('keydown', closePopupOnEsc);
 }
 
-const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
       //закрываем по оверлею(магия)
