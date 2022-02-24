@@ -5,9 +5,9 @@ const userAbout = document.querySelector('.profile__about');
 export let userId;
 
 export const initialProfileRender = (UserData) => {
-  userAvatarImg.src = UserData.avatar;
-  userName.textContent = UserData.name;
-  userAbout.textContent = UserData.about;
-  userId = UserData._id;
+  userAvatarImg.src = UserData.avatar; //устанавливаем автарку с сервера
+  userName.textContent = UserData.name; //имя с сервера
+  userAbout.textContent = UserData.about; //Абоут с сервера
+  userId = UserData._id;  //id с сервера
 };
 

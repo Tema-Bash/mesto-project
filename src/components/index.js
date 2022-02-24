@@ -4,7 +4,11 @@ import {enableValidation} from './validate.js';
 import {openPopupNewCard, openPopupProfileUpdate, openPopupAvatarChange} from "./modal.js"
 import {renderInitialArray} from "./card.js";
 import {initialProfileRender} from './profile.js';
-import {getAppInfo} from './api.js';
+import {api} from './Api.js';
+import {openPopup, closePopup} from "./utils.js";
+const imagePopup = document.querySelector('.popup_type_image');
+const imagePopupImage = imagePopup.querySelector('.popup__image');
+const imageCaption = imagePopup.querySelector('.popup__name');
 
 //валидируем
 export const options = {
@@ -23,11 +27,26 @@ openPopupNewCard()
 openPopupProfileUpdate();
 openPopupAvatarChange();
 
+
+  import {Section, handleCardLikeClick, handleCardDeleteClick, handleCardBigClick, handleSubmitNewCard} from './Section.js';
+  const cardListSelector = '.cards__list'; // cardList Selector
+  const templateSelector = '#card-template';
+  import {Card} from './card.js'
+  import {userId} from './profile.js'
+  
+//создаём экземпляр класса секшн
+export const section = new Section({
+  renderer: (data) => {
+    const card = new Card({data, handleCardBigClick , handleCardLikeClick , handleCardDeleteClick }, userId, templateSelector)
+    const cardElement = card.generate();
+    section.addItem(cardElement);
+  }}, cardListSelector);
+
 //грузим данные с сервера и рендерим их
-getAppInfo()
+api.getAppInfo()
   .then(([user, cards]) => {
     initialProfileRender(user);
-    renderInitialArray(cards);
+    section.renderItems(cards); //рисуем начальные карточки
   })
   .catch(err => console.log(err));
 
