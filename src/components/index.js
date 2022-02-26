@@ -1,11 +1,11 @@
 //инициализацию JS-кода, добавление слушателей и другие важные участки оставить тут
 import './../pages/index.css';
-import {enableValidation} from './validate.js';
 import {openPopupNewCard, openPopupProfileUpdate, openPopupAvatarChange} from "./modal.js"
 import {renderInitialArray} from "./card.js";
 import {initialProfileRender} from './profile.js';
 import {api} from './Api.js';
 import {openPopup, closePopup} from "./utils.js";
+import {FormValidator} from "./FormValidator.js"
 const imagePopup = document.querySelector('.popup_type_image');
 const imagePopupImage = imagePopup.querySelector('.popup__image');
 const imageCaption = imagePopup.querySelector('.popup__name');
@@ -20,7 +20,14 @@ export const options = {
   errorClass: 'popup__error_visible'
 }
 
-enableValidation(options);  
+const FormNewCard = new FormValidator(options, '.popup__form_type_cards');
+FormNewCard.enableValidation();
+
+const FormNewAvatar = new FormValidator(options, '.popup__container_type_avatar');
+FormNewAvatar.enableValidation();
+
+const FormInfoUser = new FormValidator(options, '.popup__form_type_profile');
+FormInfoUser.enableValidation();
 
 //вешаем слушатели для открытия попапов
 openPopupNewCard()

@@ -10,13 +10,37 @@ const options = {
 */
 
 export class FormValidator {
-  constructor(options, targetElement) {
+  constructor({formSelector, inputSelector, submitButtonSelector,inactiveButtonClass, inputErrorClass, errorClass}, formIdForValidation) {
+    this._formSelector = formSelector;
+    this._inputSelector = inputSelector;
+    this._submitButtonSelector = submitButtonSelector;
+    this._inactiveButtonClass = inactiveButtonClass;
+    this._inputErrorClass = inputErrorClass;
+    this._errorClass = errorClass;
 
+    this._formSelectorForValidation = formIdForValidation;
   }
+// публичный метод для навешивания функции валидации
+  enableValidation(){
+    const form = document.querySelector(this._formSelectorForValidation); //ищу форму
+    const inputList = Array.from(form.querySelectorAll(this._inputSelector)); //в форме ищу все интпуты
+
+    //вещаю на каждый инпут слушатель которой при введении символа проверяет валиден он или нет
+    inputList.forEach(input => {
+      input.addEventListener('input', () => {
+        this._checkInputValidity(form, input, this._inputErrorClass, this._errorClass);
+        this._toggleButtonState(form, inputList);
+      })
+    })
+    //отключаю штатную оправку формы
+    form.addEventListener('submit' , event => { 
+      event.preventDefault();
+    })
+  };
 
   //имеет приватные методы, которые обрабатывают форму: проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики;
   _hasInvalidInput = (inputList) => {
-    return inputList.some((inputElement) => {return !inputElement.validity.valid})
+    return inputList.some((input) => {return !input.validity.valid})
   };
   //включаем кнопку
   _enableButton = (buttonElement, inactiveButtonClass) => {
@@ -29,12 +53,12 @@ export class FormValidator {
     buttonElement.disabled = true;
   };
   //4 если не валидна форма делаем кнопку недоступной для клика
-  _toggleButtonState = (formElement, inputList, submitButtonSelector, inactiveButtonClass) => {
-    const buttonElement = formElement.querySelector(submitButtonSelector);
-    if(hasInvalidInput(inputList)){
-      _disableButton(buttonElement, inactiveButtonClass);
+  _toggleButtonState = (formElement, inputList) => {
+    const buttonElement = formElement.querySelector(this._submitButtonSelector);
+    if(this._hasInvalidInput(inputList)){
+      this._disableButton(buttonElement, this._inactiveButtonClass);
     }else{
-      _enableButton(buttonElement, inactiveButtonClass);
+      this._enableButton(buttonElement, this._inactiveButtonClass);
     }
   };
   
@@ -56,10 +80,10 @@ export class FormValidator {
     const errorElement = formElement.querySelector(`#error-${inputElement.id}`)
     if(inputElement.validity.valid){
       //no error
-      _hideInputError(inputElement, inputErrorClass, errorElement, errorClass);
+      this._hideInputError(inputElement, inputErrorClass, errorElement, errorClass);
     }else{
       //error
-      _showInputError(inputElement, inputErrorClass, errorElement, errorClass, inputElement.validationMessage)
+      this._showInputError(inputElement, inputErrorClass, errorElement, errorClass, inputElement.validationMessage)
     }
   }
   
@@ -68,20 +92,10 @@ export class FormValidator {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
       inputList.forEach(inputElement => {
         inputElement.addEventListener('input', () => {
-          _checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
-          _toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
+          this._checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
+          this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
         })
       });
-      _toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
+      this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
   }
-  //имеет публичный метод enableValidation, который включает валидацию формы.
-  enableValidation({formSelector, ...rest}){
-    const formList = Array.from(document.querySelectorAll(formSelector));
-    formList.forEach(formElement =>{
-      formElement.addEventListener('submit',(event)=>{
-        event.preventDefault();
-      })
-      this._setEventListeners(formElement,rest) 
-    })
-  };
 }
