@@ -62,19 +62,19 @@ export function handleCardDeleteClick(evt, cardId) {      //в кард прив
 };
 
 //открываем попап конкретной карточки
-export function handleCardBigClick (event) { 
-  openPopup(imagePopup);
-  imagePopupImage.src = event.target.src;
-  imagePopupImage.alt = event.target.alt;
-  imageCaption.textContent = event.target.alt;
-};
+//export function handleCardBigClick (event) { 
+  //openPopup(imagePopup);
+  //imagePopupImage.src = event.target.src;
+  //imagePopupImage.alt = event.target.alt;
+  //imageCaption.textContent = event.target.alt;
+//};
 
 //рендерим новую карточку 
 import {disableButton} from './validate.js'
 import {options} from './index.js'
 import {section} from './index.js'
 
-export const handleSubmitNewCard = (evt) => { //popupWithForm
+/*export const handleSubmitNewCard = (evt) => { //popupWithForm
   evt.preventDefault();
   submitCardButton.textContent = "Сохранение...";
   api.cardRenderServer(cardNameInput.value, cardLinkInput.value)  //отправили на сервер
@@ -86,5 +86,5 @@ export const handleSubmitNewCard = (evt) => { //popupWithForm
   })
   .catch((res) => {console.log(res)})
   .finally(() => {submitCardButton.textContent = "Создать"})
-};
+};*/
 

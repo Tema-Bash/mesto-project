@@ -1,4 +1,4 @@
-
+/*
 //работа модальных окон тут
 import {openPopup, closePopup} from "./utils.js";
 import {formAddNewCard} from "./card.js";
@@ -81,3 +81,4 @@ const handleProfileFormSubmit = (evt) => {
 formElementProfile.addEventListener('submit', handleProfileFormSubmit);
 avatarPopup.addEventListener('submit', handleAvatarFormSubmit);
 formAddNewCard.addEventListener('submit', handleSubmitNewCard);
+*/

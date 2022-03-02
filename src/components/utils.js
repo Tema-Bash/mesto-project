@@ -1,5 +1,5 @@
 //утилитарные функции, которые используются в работе сразу нескольких других функций
-
+/*
 //функции открытия закрытия попапа
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
@@ -15,11 +15,11 @@ popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
       //закрываем по оверлею(магия)
         if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup)
+            //closePopup(popup)
         }
         //закрываем на крестик
         if (evt.target.classList.contains('popup__close')) {
-          closePopup(popup)
+          //closePopup(popup)
         }
     })
 })
@@ -29,4 +29,4 @@ function closePopupOnEsc(evt) {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
-}
+}*/
