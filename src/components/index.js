@@ -3,7 +3,7 @@ import './../pages/index.css';
 
 import {InitialProfile} from './UserInfo.js'
 import {api} from './Api.js';
-import {Section, handleCardLikeClick, handleCardDeleteClick} from './Section.js';
+import {Section, handleCardLikeClick, handleCardDeleteClick, /*handleCardBigClick, handleSubmitNewCard*/} from './Section.js';
 import {Card} from './card.js'
 import {FormValidator} from "./FormValidator.js";
 import {PopupWithImage} from './PopupWithImage.js';
@@ -148,7 +148,7 @@ export const section = new Section({
 //грузим данные с сервера и рендерим их
 api.getAppInfo()
   .then(([user, cards]) => {
-    new InitialProfile(UserDataSelectors).setUserInfo(user)  
-    section.renderItems(cards);
+    new InitialProfile(UserDataSelectors).setUserInfo(user)   // = initialProfileRender(user) рисуем начальный профиль
+    section.renderItems(cards); //рисуем начальные карточки
   })
   .catch(err => console.log(err));
