@@ -148,7 +148,7 @@ export const section = new Section({
 //грузим данные с сервера и рендерим их
 api.getAppInfo()
   .then(([user, cards]) => {
-    new InitialProfile(UserDataSelectors).setUserInfo(user)   // = initialProfileRender(user) рисуем начальный профиль
+    profile.setUserInfo(user)   // = initialProfileRender(user) рисуем начальный профиль
     section.renderItems(cards); //рисуем начальные карточки
   })
   .catch(err => console.log(err));
