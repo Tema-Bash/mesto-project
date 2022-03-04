@@ -19,16 +19,13 @@ export class Popup {
     setEventListeners() { 
         this._popupSelector.addEventListener('mousedown', (evt) => {
             //закрываем по оверлею(магия)
-            console.log(this._popupSelector)
             if (evt.target.classList.contains('popup_opened')) {
-                //console.log(this)
                 this.close();
             }
             //закрываем на крестик
             if (evt.target.classList.contains('popup__close')) {
                 this.close()
                 this._popupSelector.classList.remove("popup_opened");
-                console.log(this.close())
             }
         }) 
     }

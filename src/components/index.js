@@ -1,25 +1,31 @@
 //инициализацию JS-кода, добавление слушателей и другие важные участки оставить тут
 import './../pages/index.css';
-import {openPopupNewCard, openPopupProfileUpdate, openPopupAvatarChange} from "./modal.js"
-import {renderInitialArray} from "./card.js";
-import {initialProfileRender} from './profile.js';
+
+import {InitialProfile} from './UserInfo.js'
 import {api} from './Api.js';
-import {openPopup, closePopup} from "./utils.js";
+import {Section, handleCardLikeClick, handleCardDeleteClick} from './Section.js';
+import {Card} from './card.js'
 import {FormValidator} from "./FormValidator.js";
 import {PopupWithImage} from './PopupWithImage.js';
 import {PopupWithForm} from "./PopupWithForm.js";
-//const imagePopup = document.querySelector('.popup_type_image');
-//const imagePopupImage = imagePopup.querySelector('.popup__image');
-//const imageCaption = imagePopup.querySelector('.popup__name');
+
 const buttonAddNewCard = document.querySelector(".profile__add");
 const buttonEditProfile = document.querySelector(".profile__edit");
-const profilePopup = document.querySelector('.popup_type_profile');
+const cardListSelector = '.cards__list'; 
+const templateSelector = '#card-template';
 const profileNameInput = document.querySelector('.popup__input_type_name');
 const profileAboutInput = document.querySelector('.popup__input_type_about');
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const profileAvatar = document.querySelector('.profile__avatar');
-
+const avatarPopup = document.querySelector('.popup_type_avatar');
+const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
+const submitAvatarButton = formElementAvatar.querySelector('.popup__button');
+const formElementProfile = document.querySelector(".popup__form_type_profile");
+const submitProfileButton = formElementProfile.querySelector('.popup__button');
+const newCardPopup = document.querySelector('.popup_type_cards');
+const submitCardButton = newCardPopup.querySelector('.popup__button');
+const userAvatarImg = document.querySelector('.profile__image');
 
 //валидируем
 export const options = {
@@ -31,6 +37,17 @@ export const options = {
   errorClass: 'popup__error_visible'
 }
 
+//Объект селекторов для данных пользователя
+const UserDataSelectors = {
+  nameSelector: '.profile__name',
+  aboutSelector: '.profile__about',
+  imageSelector: '.profile__image',
+}
+
+
+const profile = new InitialProfile(UserDataSelectors)
+profile.getUserInfo()
+
 const FormNewCard = new FormValidator(options, '.popup__form_type_cards');
 FormNewCard.enableValidation();
 
@@ -39,32 +56,32 @@ FormNewAvatar.enableValidation();
 
 const FormInfoUser = new FormValidator(options, '.popup__form_type_profile');
 FormInfoUser.enableValidation();
-
-//создаём экземпляр класса, для сохранение новой карточки 
+              
+//создаём экземпляр класса, для сохранения новой карточки 
 export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
   handleFormSubmit: (data) => {
     submitCardButton.textContent = "Сохранение...";
     //вызываем метод api для сохранение введеных данных о карточке на сервер
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
-      section._renderer(data);  //renderCard(cardList, new Card({data, handleCardBigClick , handleCardLikeClick , handleCardDeleteClick }, userId, templateSelector).generate())
-      disableButton(submitCardButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
+      section._renderer(data);  
+      FormNewCard._disableButton(submitCardButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
       popupWithFormCard.close();
     })
     .catch((res) => {console.log(res)})
     .finally(() => {submitCardButton.textContent = "Создать"})
   }
 })
-
+              
 //создаём экземпляр класса, для сохранения новой аватарки
 const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
   handleFormSubmit: (data) => {
     submitAvatarButton.textContent = "Сохранение...";
-    //вызываем метод api для сохранение аватарки 
+    //вызываем метод api для сохранения аватарки 
     api.sendNewAvatar(data.formLinkAvatar)
     .then(() => {
       userAvatarImg.src = data.formLinkAvatar;
-      disableButton(submitAvatarButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
+      FormNewAvatar._disableButton(submitAvatarButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
       popupWithFormAvatar.close()
     })
     .catch((res)=>{alert(res)})
@@ -72,11 +89,11 @@ const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
   }
 })
 
-//создаём экземпляр класса, для сохранение новых введеных данных в шапку профиля
+//создаём экземпляр класса, для сохранения новых введеных данных в шапку профиля
 const popupWithFormProfile = new PopupWithForm('.popup_type_profile', {
   handleFormSubmit: (data) => {
     submitProfileButton.textContent = "Сохранение..."
-    //вызываем метод api для сохранение введеных данных о пользователе на сервер
+    //вызываем метод api для сохранения введеных данных о пользователе на сервер
     api.sendProfileData(data.formNameProfile, data.formAboutProfile)
     .then(() => {
       profileName.textContent = data.formNameProfile; 
@@ -111,24 +128,19 @@ buttonEditProfile.addEventListener("click", () => {
 //открываем попап конкретной карточки
 function handleCardBigClick (event) { 
   popupWithImage.open(event);
+  popupWithImage.setEventListeners();
 };
 
 //вешаем слушатели для взаимодействия с формами
 popupWithFormCard.setEventListeners();
-popupWithFormAvatar.setEventListeners()
-popupWithFormProfile.setEventListeners()
+popupWithFormAvatar.setEventListeners();
+popupWithFormProfile.setEventListeners();
 
-
-  import {Section, handleCardLikeClick, handleCardDeleteClick, /*handleCardBigClick, handleSubmitNewCard*/} from './Section.js';
-  const cardListSelector = '.cards__list'; // cardList Selector
-  const templateSelector = '#card-template';
-  import {Card} from './card.js'
-  import {userId} from './profile.js'
-  
 //создаём экземпляр класса секшн
 export const section = new Section({
   renderer: (data) => {
-    const card = new Card({data, handleCardBigClick , handleCardLikeClick , handleCardDeleteClick }, userId, templateSelector)
+    //грузим данные с сервера и рендерим их
+    const card = new Card({data, handleCardBigClick , handleCardLikeClick , handleCardDeleteClick }, profile.id, templateSelector)
     const cardElement = card.generate();
     section.addItem(cardElement);
   }}, cardListSelector);
@@ -136,9 +148,7 @@ export const section = new Section({
 //грузим данные с сервера и рендерим их
 api.getAppInfo()
   .then(([user, cards]) => {
-    initialProfileRender(user);
-    section.renderItems(cards); //рисуем начальные карточки
+    new InitialProfile(UserDataSelectors).setUserInfo(user)  
+    section.renderItems(cards);
   })
   .catch(err => console.log(err));
-
-
