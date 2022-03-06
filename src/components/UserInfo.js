@@ -1,4 +1,4 @@
-import {api} from './Api.js';
+import {api} from '../pages/index.js';
 export class InitialProfile {
   constructor({ imageSelector, nameSelector, aboutSelector }) { //Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
     this._AvatarSrc = document.querySelector(imageSelector) 

@@ -6,13 +6,13 @@ export class Popup {
     //метод открытия попапа
     open() {
         this._popupSelector.classList.add("popup_opened");
-        document.addEventListener('keydown', this._handleEscClose.bind(this)); 
+        document.addEventListener('keydown', this._handleEscClose); 
     }
 
     //метод закрытия попапа
     close() {
         this._popupSelector.classList.remove("popup_opened");
-        document.removeEventListener('keydown', this._handleEscClose.bind(this));
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 
     //метод добавляет слушатель клика крестика/оверлею, для закрытия попапа 
@@ -31,7 +31,7 @@ export class Popup {
     }
     
     //метод закрытия попапа клавишей Esc
-    _handleEscClose(evt) {
+    _handleEscClose = (evt) => {
         if (evt.key == 'Escape') {
             this.close()
         }
