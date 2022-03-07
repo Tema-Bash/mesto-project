@@ -1,6 +1,7 @@
 export class Popup {
     constructor(popup) {
         this._popup = document.querySelector(popup);
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     //метод открытия попапа
@@ -25,13 +26,12 @@ export class Popup {
             //закрываем на крестик
             if (evt.target.classList.contains('popup__close')) {
                 this.close()
-                this._popup.classList.remove("popup_opened");
             }
         }) 
     }
     
     //метод закрытия попапа клавишей Esc
-    _handleEscClose = (evt) => {
+    _handleEscClose(evt) {
         if (evt.key == 'Escape') {
             this.close()
         }

@@ -3,7 +3,7 @@ import {api} from '../pages/index.js';
 export class Section {
   constructor({renderer}, cardListSelector) {
     this._renderer = renderer;
-    this._container = document.querySelector(cardListSelector); 
+    this._container = document.querySelector(cardListSelector);
   }
 
   clear() {
