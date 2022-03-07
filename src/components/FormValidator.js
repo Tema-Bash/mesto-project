@@ -13,7 +13,7 @@ export class FormValidator {
   enableValidation(){
     const form = document.querySelector(this._formSelectorForValidation); //ищу форму
     const inputList = Array.from(form.querySelectorAll(this._inputSelector)); //в форме ищу все интпуты
-
+    this._toggleButtonState(form, inputList);
     //вещаю на каждый инпут слушатель которой при введении символа проверяет валиден он или нет
     inputList.forEach(input => {
       input.addEventListener('input', () => {
@@ -75,7 +75,7 @@ export class FormValidator {
       this._showInputError(inputElement, inputErrorClass, errorElement, errorClass, inputElement.validationMessage)
     }
   }
-  
+  /*
   //2 вешаем слушатель на ввод данных
   _setEventListeners=(formElement, {inputSelector, inputErrorClass, errorClass,submitButtonSelector, inactiveButtonClass}) => {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
@@ -87,5 +87,5 @@ export class FormValidator {
       });
       console.log(1)
       this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
-  }
+  }*/
 }
