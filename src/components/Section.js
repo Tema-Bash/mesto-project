@@ -23,25 +23,3 @@ export class Section {
   }
   
 }
-
-//поставить лайк
-export function handleCardLikeClick (evt, cardId) {   //в кард приватный метод
-  if(evt.target.classList.contains('card__button_active')){
-    api.deleteLike(cardId)
-    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
-    .then((_) => evt.target.classList.toggle('card__button_active'))
-    .catch((res)=>{console.log(res)}); 
-  }else {
-    api.putLike(cardId)
-    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
-    .then((_) => evt.target.classList.toggle('card__button_active'))
-    .catch((res)=>{console.log(res)});
-  }
-};
-
-//удалить карточку нажатием на корзинку 
-export function handleCardDeleteClick(evt, cardId) {      //в кард приватный метод
-  api.deleteCard(cardId)
-  .then((_) => evt.target.closest('.card').remove())
-  .catch((res)=>{console.log(res)});
-};

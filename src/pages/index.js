@@ -2,7 +2,7 @@
 import './../pages/index.css';
 import {UserInfo} from '../components/UserInfo.js'
 import {Api} from '../components/Api.js';
-import {Section, handleCardLikeClick, handleCardDeleteClick} from '../components/Section.js';
+import {Section} from '../components/Section.js';
 import {Card} from '../components/card.js'
 import {FormValidator} from "../components/FormValidator.js";
 import {PopupWithImage} from '../components/PopupWithImage.js';
@@ -48,8 +48,8 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
     //вызываем метод api для сохранение введеных данных о карточке на сервер
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
-      section._renderer(data);  
-      formNewCard.disableButton();
+      section.renderer(data);
+      formNewCard.disableButton(submitCardButton, options.inactiveButtonClass);
       popupWithFormCard.close();
     })
     .catch((res) => {console.log(res)})
@@ -65,7 +65,7 @@ const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
     api.sendNewAvatar(data.formLinkAvatar)
     .then(() => {
       userAvatarImg.src = data.formLinkAvatar;
-      formNewAvatar.disableButton(); // не работает
+      formNewAvatar.disableButton(submitAvatarButton, options.inactiveButtonClass);
       popupWithFormAvatar.close()
     })
     .catch((res)=>{alert(res)})
@@ -131,6 +131,28 @@ const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
   })
 }} )
 profile.getUserInfo()
+
+//поставить лайк
+function handleCardLikeClick (evt, cardId) {
+  if(evt.target.classList.contains('card__button_active')){
+    api.deleteLike(cardId)
+    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
+    .then((_) => evt.target.classList.toggle('card__button_active'))
+    .catch((res)=>{console.log(res)}); 
+  }else {
+    api.putLike(cardId)
+    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
+    .then((_) => evt.target.classList.toggle('card__button_active'))
+    .catch((res)=>{console.log(res)});
+  }
+};
+
+//удалить карточку нажатием на корзинку 
+function handleCardDeleteClick(evt, cardId) {
+  api.deleteCard(cardId)
+  .then((_) => evt.target.closest('.card').remove())
+  .catch((res)=>{console.log(res)});
+};
 
 //создаём экземпляр класса секшн
 export const section = new Section({

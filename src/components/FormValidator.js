@@ -85,6 +85,7 @@ export class FormValidator {
           this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
         })
       });
+      console.log(1)
       this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
   }
 }
