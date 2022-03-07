@@ -49,7 +49,7 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
       section.renderer(data);
-      formNewCard.disableButton(submitCardButton, options.inactiveButtonClass);
+      formNewCard.disableButton(submitCardButton, options.inactiveButtonClass);   //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов экземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
       popupWithFormCard.close();
     })
     .catch((res) => {console.log(res)})
@@ -65,7 +65,7 @@ const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
     api.sendNewAvatar(data.formLinkAvatar)
     .then(() => {
       userAvatarImg.src = data.formLinkAvatar;
-      formNewAvatar.disableButton(submitAvatarButton, options.inactiveButtonClass);
+      formNewAvatar.disableButton(submitAvatarButton, options.inactiveButtonClass);  //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов экземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
       popupWithFormAvatar.close()
     })
     .catch((res)=>{alert(res)})
@@ -158,7 +158,7 @@ function handleCardDeleteClick(evt, cardId) {   //в методы Card *ревь
 export const section = new Section({
   renderer: (data) => {
     //грузим данные с сервера и рендерим их
-    const card = new Card({data, handleCardBigClick , handleCardLikeClick , handleCardDeleteClick }, profile.id, templateSelector)
+    const card = new Card({data, handleCardBigClick, handleCardLikeClick, handleCardDeleteClick }, profile.id, templateSelector)
     const cardElement = card.generate();
     section.addItem(cardElement);
   }}, cardListSelector);

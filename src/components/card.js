@@ -1,7 +1,7 @@
 //класс Card - код, который создаёт карточку с текстом и ссылкой на изображение
 export class Card {
   //принимает в конструктор её данные и селектор её template-элемента;
-  constructor({ data, handleCardBigClick , handleCardLikeClick , handleCardDeleteClick }, userId, templateSelector){
+  constructor({ data, handleCardBigClick ,handleCardLikeClick,  handleCardDeleteClick}, userId, templateSelector){
     this._selector = templateSelector;
     this._link = data.link;
     this._name = data.name;
@@ -18,7 +18,7 @@ export class Card {
   //возвращает шаблон разметки
   _getElement() {
     return document
-      .querySelector(this._selector)  //'#card-template'
+      .querySelector(this._selector) 
       .content
       .querySelector('.card')
       .cloneNode(true);
@@ -26,15 +26,15 @@ export class Card {
 
   //Работаем с разметкой собираем все компоненты карточки
   generate () {
-    this._element = this._getElement();  //const cardCloneElement = cardTemplate.querySelector('.card').cloneNode(true);
+    this._element = this._getElement();
     const _elementImage = this._element.querySelector('.card__image')
-    _elementImage.src = this._link;    //cardCloneElementImage.src = link;
-    _elementImage.alt = this._name;    //cardCloneElementImage.alt = name;
-    this._element.querySelector('.card__likes').textContent = this._likes.length; //likesCount.textContent = likes.length;
-    this._element.querySelector('.card__title').textContent = this._name;  //cardCloneElement.querySelector('.card__title').textContent = name;
+    _elementImage.src = this._link;
+    _elementImage.alt = this._name;
+    this._element.querySelector('.card__likes').textContent = this._likes.length;
+    this._element.querySelector('.card__title').textContent = this._name;
     
     //отображение моих лайков
-    const isLiked = Boolean(this._likes.find(user => user._id === this._currentUserId)); //должно быть вне
+    const isLiked = Boolean(this._likes.find(user => user._id === this._currentUserId));
     if(isLiked){
       this._element.querySelector('.card__button').classList.toggle('card__button_active')
     }
