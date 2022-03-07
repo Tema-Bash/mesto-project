@@ -1,11 +1,9 @@
-import {api} from './Api.js';
-
-// export const formAddNewCard = document.querySelector(".popup__form_type_cards");
+import {api} from '../pages/index.js';
 
 export class Section {
   constructor({renderer}, cardListSelector) {
     this.renderer = renderer;
-    this._container = document.querySelector(cardListSelector); 
+    this._container = document.querySelector(cardListSelector);
   }
 
   clear() {

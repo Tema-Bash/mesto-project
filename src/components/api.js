@@ -1,4 +1,4 @@
-class Api {
+export class Api {
   constructor(baseUrl, headers) {
     this._baseUrl = baseUrl;
     this._headers = headers;
@@ -28,6 +28,7 @@ class Api {
     return Promise.all([this.getUser(), this.getCards()]);
   }
 
+
   //удаляем лайк с карточки на сервере
   deleteLike (cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
@@ -51,7 +52,9 @@ class Api {
     return   fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
-    }).then(res => this.getResponseData(res))
+
+    })
+    .then(res => this.getResponseData(res))
   }
 
   //рендерим новую карточку на сервере
@@ -75,7 +78,9 @@ class Api {
       body: JSON.stringify({
         avatar: link
       })
-    }).then(res => this.getResponseData(res))
+
+    })
+    .then(res => this.getResponseData(res))
   }
 
   //отправляем новые данные профиля
@@ -87,15 +92,7 @@ class Api {
         name: name,
         about: about
       })
-    }).then(res => this.getResponseData(res))
+    })
+    .then(res => this.getResponseData(res))
   }
 }
-
-export const api = new Api('https://nomoreparties.co/v1/plus-cohort-6', {
-  authorization: '64f73e63-60f2-487f-9d1f-1d8ea3c050e0',
-  'Content-Type': 'application/json'
-}); //создаем экземпляр класса апи
-
-export default api
-
-
