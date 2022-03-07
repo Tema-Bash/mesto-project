@@ -14,7 +14,7 @@ export class FormValidator {
     const form = document.querySelector(this._formSelectorForValidation); //ищу форму
     const inputList = Array.from(form.querySelectorAll(this._inputSelector)); //в форме ищу все интпуты
     this._toggleButtonState(form, inputList);
-    //вещаю на каждый инпут слушатель которой при введении символа проверяет валиден он или нет
+    //вешаю на каждый инпут слушатель которой при введении символа проверяет валиден он или нет
     inputList.forEach(input => {
       input.addEventListener('input', () => {
         this._checkInputValidity(form, input, this._inputErrorClass, this._errorClass);

@@ -1,5 +1,3 @@
-import {api} from '../pages/index.js';
-
 export class Section {
   constructor({renderer}, cardListSelector) {
     this.renderer = renderer;

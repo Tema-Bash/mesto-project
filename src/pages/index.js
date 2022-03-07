@@ -133,7 +133,7 @@ const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
 profile.getUserInfo()
 
 //поставить лайк
-function handleCardLikeClick (evt, cardId) {
+function handleCardLikeClick (evt, cardId) {    //в методы Card *ревьювер
   if(evt.target.classList.contains('card__button_active')){
     api.deleteLike(cardId)
     .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
@@ -148,7 +148,7 @@ function handleCardLikeClick (evt, cardId) {
 };
 
 //удалить карточку нажатием на корзинку 
-function handleCardDeleteClick(evt, cardId) {
+function handleCardDeleteClick(evt, cardId) {   //в методы Card *ревьювер
   api.deleteCard(cardId)
   .then((_) => evt.target.closest('.card').remove())
   .catch((res)=>{console.log(res)});
