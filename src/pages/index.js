@@ -114,12 +114,12 @@ buttonAddNewCard.addEventListener("click", () => {
 profileAvatar.addEventListener("click", () => {
   popupWithFormAvatar.open();
 })
-
-//открываем попап профеля и подтягиваем значения строк из верстки
+console.log(profile.getUserInfo())
+//открываем попап профиля и подтягиваем значения строк из верстки
 buttonEditProfile.addEventListener("click", () => {
   popupWithFormProfile.open();
-  profileNameInput.value = profileName.textContent;
-  profileAboutInput.value = profileAbout.textContent;
+  profile.getUserInfo().name = profileName.textContent;
+  profile.getUserInfo().about = profileAbout.textContent;
 })
 
 //открываем попап конкретной карточки

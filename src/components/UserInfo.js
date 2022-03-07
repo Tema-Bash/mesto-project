@@ -6,9 +6,12 @@ export class UserInfo {
     this._fillInfo = fillInfo
   }
 
-  //метод который возвращает объект с данными пользователя
   getUserInfo() {
-    return this._fillInfo()
+    this._fillInfo() //костыль
+    return {
+      name: this._name.textContent,
+      about: this._about.textContent
+    }
   }
 
   //Mетод который принимает новые данные пользователя, отправляет их на сервер и добавляет их на страницу.(взять из modal.js)
