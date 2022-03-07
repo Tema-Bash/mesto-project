@@ -4,7 +4,7 @@ import {api} from './Api.js';
 
 export class Section {
   constructor({renderer}, cardListSelector) {
-    this._renderer = renderer;
+    this.renderer = renderer;
     this._container = document.querySelector(cardListSelector); 
   }
 
@@ -20,7 +20,7 @@ export class Section {
   //отрисовывем начальныее карточки с помощью _renderer
   renderItems(cardsData) {
     cardsData.reverse().forEach(data => {
-      this._renderer(data); 
+      this.renderer(data); 
     })
   }
   

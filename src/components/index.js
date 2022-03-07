@@ -1,7 +1,7 @@
 //инициализацию JS-кода, добавление слушателей и другие важные участки оставить тут
 import './../pages/index.css';
 
-import {InitialProfile} from './UserInfo.js'
+import {UserInfo} from './UserInfo.js'
 import {api} from './Api.js';
 import {Section, handleCardLikeClick, handleCardDeleteClick, /*handleCardBigClick, handleSubmitNewCard*/} from './Section.js';
 import {Card} from './card.js'
@@ -44,9 +44,7 @@ const UserDataSelectors = {
   imageSelector: '.profile__image',
 }
 
-
-const profile = new InitialProfile(UserDataSelectors)
-profile.getUserInfo()
+/////////
 
 const FormNewCard = new FormValidator(options, '.popup__form_type_cards');
 FormNewCard.enableValidation();
@@ -64,7 +62,7 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
     //вызываем метод api для сохранение введеных данных о карточке на сервер
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
-      section._renderer(data);  
+      section.renderer(data);  
       FormNewCard._disableButton(submitCardButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
       popupWithFormCard.close();
     })
@@ -136,6 +134,18 @@ popupWithFormCard.setEventListeners();
 popupWithFormAvatar.setEventListeners();
 popupWithFormProfile.setEventListeners();
 
+const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
+  api.getUser()
+    .then((user) => {
+    profile.id = user._id;
+    profile.name = user.name;
+    profile.about = user.about;
+    profile.avatar = user.avatar;
+    profile.cohort = user.cohort;
+  })
+}} )
+profile.getUserInfo()
+
 //создаём экземпляр класса секшн
 export const section = new Section({
   renderer: (data) => {
@@ -145,10 +155,12 @@ export const section = new Section({
     section.addItem(cardElement);
   }}, cardListSelector);
 
+
+
 //грузим данные с сервера и рендерим их
 api.getAppInfo()
   .then(([user, cards]) => {
-    profile.setUserInfo(user)   // = initialProfileRender(user) рисуем начальный профиль
+    profile.setUserInfo(user)   // рисуем начальный профиль
     section.renderItems(cards); //рисуем начальные карточки
   })
   .catch(err => console.log(err));

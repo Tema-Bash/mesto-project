@@ -1,27 +1,29 @@
-import {api} from './Api.js';
-export class InitialProfile {
-  constructor({ imageSelector, nameSelector, aboutSelector }) { //Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
-    this._AvatarSrc = document.querySelector(imageSelector) 
-    this._Name = document.querySelector(nameSelector) 
-    this._About = document.querySelector(aboutSelector) 
+export class UserInfo {
+  constructor({ imageSelector, nameSelector, aboutSelector }, {fillInfo}) { //Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
+    this._avatarSrc = document.querySelector(imageSelector) 
+    this._name = document.querySelector(nameSelector) 
+    this._about = document.querySelector(aboutSelector)
+    this._fillInfo = fillInfo
   }
 
   //метод который возвращает объект с данными пользователя
   getUserInfo() {
-    return api.getUser()
-      .then((user) => {
-      this.id = user._id;
-      this.name = user.name;
-      this.about = user.about;
-      this.avatar = user.avatar;
-      this.cohort = user.cohort;
-    })
+    return this._fillInfo()
   }
 
   //Mетод который принимает новые данные пользователя, отправляет их на сервер и добавляет их на страницу.(взять из modal.js)
-  setUserInfo(UserData) {
-    this._AvatarSrc.src = UserData.avatar;
-    this._Name.textContent = UserData.name; //имя с сервера
-    this._About.textContent = UserData.about; //Абоут с сервера
+  setUserInfo({ name, about, avatar, _id }) {
+    this._avatarSrc.src = avatar;
+    this._name.textContent = name; //имя с сервера
+    this._about.textContent = about; //Абоут с сервера
+    this._id = _id;
   }
 }
+/*
+getUserInfo() {
+  return {
+    name: this._name.textContent,
+    about: this._about.textContent
+  }
+}
+*/
