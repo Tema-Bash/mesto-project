@@ -37,7 +37,7 @@ export class FormValidator {
     buttonElement.disabled = false;
   };
   //выключаем кнопку
-  _disableButton = (buttonElement, inactiveButtonClass) => {
+  disableButton = (buttonElement, inactiveButtonClass) => {
     buttonElement.classList.add(inactiveButtonClass);
     buttonElement.disabled = true;
   };
@@ -45,7 +45,7 @@ export class FormValidator {
   _toggleButtonState = (formElement, inputList) => {
     const buttonElement = formElement.querySelector(this._submitButtonSelector);
     if(this._hasInvalidInput(inputList)){
-      this._disableButton(buttonElement, this._inactiveButtonClass);
+      this.disableButton(buttonElement, this._inactiveButtonClass);
     }else{
       this._enableButton(buttonElement, this._inactiveButtonClass);
     }

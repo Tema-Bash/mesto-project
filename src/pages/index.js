@@ -34,14 +34,14 @@ export const api = new Api('https://nomoreparties.co/v1/plus-cohort-6', {
 const profile = new InitialProfile(UserDataSelectors)
 profile.getUserInfo()
 
-const FormNewCard = new FormValidator(options, '.popup__form_type_cards');
-FormNewCard.enableValidation();
+const formNewCard = new FormValidator(options, '.popup__form_type_cards');
+formNewCard.enableValidation();
 
-const FormNewAvatar = new FormValidator(options, '.popup__container_type_avatar');
-FormNewAvatar.enableValidation();
+const formNewAvatar = new FormValidator(options, '.popup__container_type_avatar');
+formNewAvatar.enableValidation();
 
-const FormInfoUser = new FormValidator(options, '.popup__form_type_profile');
-FormInfoUser.enableValidation();
+const formInfoUser = new FormValidator(options, '.popup__form_type_profile');
+formInfoUser.enableValidation();
               
 //создаём экземпляр класса, для сохранения новой карточки 
 export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
@@ -51,7 +51,7 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
       section._renderer(data);  
-      FormNewCard._disableButton(submitCardButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
+      formNewCard.disableButton(); // не работает
       popupWithFormCard.close();
     })
     .catch((res) => {console.log(res)})
@@ -67,7 +67,7 @@ const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
     api.sendNewAvatar(data.formLinkAvatar)
     .then(() => {
       userAvatarImg.src = data.formLinkAvatar;
-      FormNewAvatar._disableButton(submitAvatarButton, options.inactiveButtonClass) //изменить на метод класса FormValidator
+      formNewAvatar.disableButton(); // не работает
       popupWithFormAvatar.close()
     })
     .catch((res)=>{alert(res)})
