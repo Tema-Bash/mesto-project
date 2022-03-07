@@ -1,8 +1,8 @@
 import {Popup} from "./Popup.js";
 
 export class PopupWithForm extends Popup {
-    constructor(popupSelector, {handleFormSubmit}) {
-        super(popupSelector);
+    constructor(popup, {handleFormSubmit}) {
+        super(popup);
         this._handleFormSubmit = handleFormSubmit;
     }
 
@@ -21,13 +21,13 @@ export class PopupWithForm extends Popup {
     //метод закрытия попапа + сброс формы
     close() {
         super.close();
-        this._popupSelector.querySelector('.popup__form').reset();
+        this._popup.querySelector('.popup__form').reset();
     }
 
     //обработчик клика иконке закрытия + обработчик сабмита формы.
     setEventListeners() {
         super.setEventListeners();
-        this._popupSelector.addEventListener('submit', (event) => {          
+        this._popup.addEventListener('submit', (event) => {          
             this._handleFormSubmit(this._getInputValues());
         });
     }

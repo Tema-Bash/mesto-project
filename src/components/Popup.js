@@ -1,23 +1,23 @@
 export class Popup {
-    constructor(popupSelector) {
-        this._popupSelector = document.querySelector(popupSelector);
+    constructor(popup) {
+        this._popup = document.querySelector(popup);
     }
 
     //метод открытия попапа
     open() {
-        this._popupSelector.classList.add("popup_opened");
+        this._popup.classList.add("popup_opened");
         document.addEventListener('keydown', this._handleEscClose); 
     }
 
     //метод закрытия попапа
     close() {
-        this._popupSelector.classList.remove("popup_opened");
+        this._popup.classList.remove("popup_opened");
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
     //метод добавляет слушатель клика крестика/оверлею, для закрытия попапа 
     setEventListeners() { 
-        this._popupSelector.addEventListener('mousedown', (evt) => {
+        this._popup.addEventListener('mousedown', (evt) => {
             //закрываем по оверлею(магия)
             if (evt.target.classList.contains('popup_opened')) {
                 this.close();
@@ -25,7 +25,7 @@ export class Popup {
             //закрываем на крестик
             if (evt.target.classList.contains('popup__close')) {
                 this.close()
-                this._popupSelector.classList.remove("popup_opened");
+                this._popup.classList.remove("popup_opened");
             }
         }) 
     }
