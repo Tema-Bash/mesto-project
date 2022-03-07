@@ -1,6 +1,6 @@
 //инициализацию JS-кода, добавление слушателей и другие важные участки оставить тут
 import './../pages/index.css';
-import {InitialProfile} from '../components/UserInfo.js'
+import {UserInfo} from '../components/UserInfo.js'
 import {Api} from '../components/Api.js';
 import {Section, handleCardLikeClick, handleCardDeleteClick} from '../components/Section.js';
 import {Card} from '../components/card.js'
@@ -25,49 +25,6 @@ import {
   options
 } from "../utils/constants.js";
 
-/////////
-import {UserInfo} from '../components/UserInfo.js'
-//import {api} from './Api.js';
-//import {Section, handleCardLikeClick, handleCardDeleteClick, /*handleCardBigClick, handleSubmitNewCard*/} from './Section.js';
-//import {Card} from './card.js'
-//import {FormValidator} from "./FormValidator.js";
-//import {PopupWithImage} from './PopupWithImage.js';
-//import {PopupWithForm} from "./PopupWithForm.js";
-
-//const buttonAddNewCard = document.querySelector(".profile__add");
-//const buttonEditProfile = document.querySelector(".profile__edit");
-//const cardListSelector = '.cards__list'; 
-//const templateSelector = '#card-template';
-//const profileNameInput = document.querySelector('.popup__input_type_name');
-//const profileAboutInput = document.querySelector('.popup__input_type_about');
-//const profileName = document.querySelector(".profile__name");
-//const profileAbout = document.querySelector(".profile__about");
-//const profileAvatar = document.querySelector('.profile__avatar');
-const avatarPopup = document.querySelector('.popup_type_avatar');
-const formElementAvatar = avatarPopup.querySelector('.popup__form_type_avatar');
-//const submitAvatarButton = formElementAvatar.querySelector('.popup__button');
-const formElementProfile = document.querySelector(".popup__form_type_profile");
-//const submitProfileButton = formElementProfile.querySelector('.popup__button');
-const newCardPopup = document.querySelector('.popup_type_cards');
-//const submitCardButton = newCardPopup.querySelector('.popup__button');
-//const userAvatarImg = document.querySelector('.profile__image');
-
-//валидируем
-/*export const options = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}*/
-
-//Объект селекторов для данных пользователя
-/*const UserDataSelectors = {
-  nameSelector: '.profile__name',
-  aboutSelector: '.profile__about',
-  imageSelector: '.profile__image',
-}*/
 
 //создаем экземпляр класса апи
 export const api = new Api('https://nomoreparties.co/v1/plus-cohort-6', {
