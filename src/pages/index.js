@@ -32,6 +32,7 @@ export const api = new Api('https://nomoreparties.co/v1/plus-cohort-6', {
   'Content-Type': 'application/json'
 });
 
+//вешаем валидацию
 const formNewCard = new FormValidator(options, '.popup__form_type_cards');
 formNewCard.enableValidation();
 
@@ -40,7 +41,20 @@ formNewAvatar.enableValidation();
 
 const formInfoUser = new FormValidator(options, '.popup__form_type_profile');
 formInfoUser.enableValidation();
-              
+            
+//создаем профиль пользователя с персональным id
+const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
+  api.getUser()
+    .then((user) => {
+      profile.id = user._id;
+      profile.name = user.name;
+      profile.about = user.about;
+      profile.avatar = user.avatar;
+      profile.cohort = user.cohort;
+    })
+}})
+profile.getUserInfo()
+
 //создаём экземпляр класса, для сохранения новой карточки 
 export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
   handleFormSubmit: (data) => {
@@ -61,14 +75,14 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
 const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
   handleFormSubmit: (data) => {
     submitAvatarButton.textContent = "Сохранение...";
-    //вызываем метод api для сохранения аватарки 
+    //вызываем метод api для обновления аватарки на сервере
     api.sendNewAvatar(data.formLinkAvatar)
-    .then(() => {
-      userAvatarImg.src = data.formLinkAvatar;
+    .then((updateUser) => {
+      profile.setUserInfo(updateUser)
       formNewAvatar.disableButton(submitAvatarButton, options.inactiveButtonClass);  //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов экземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
       popupWithFormAvatar.close()
     })
-    .catch((res)=>{alert(res)})
+    .catch((res)=>{console.log(res)})
     .finally(() => {submitAvatarButton.textContent = "Сохранить"})
   }
 })
@@ -79,12 +93,11 @@ const popupWithFormProfile = new PopupWithForm('.popup_type_profile', {
     submitProfileButton.textContent = "Сохранение..."
     //вызываем метод api для сохранения введеных данных о пользователе на сервер
     api.sendProfileData(data.formNameProfile, data.formAboutProfile)
-    .then(() => {
-      profileName.textContent = data.formNameProfile; 
-      profileAbout.textContent = data.formAboutProfile;
+    .then((updateUser) => {
+      profile.setUserInfo(updateUser)
       popupWithFormProfile.close()
     })
-    .catch((res)=>{alert(res)})
+    .catch((res)=>{console.log(res)})
     .finally(() => {submitProfileButton.textContent = "Сохранить"})
   } 
 });
@@ -120,18 +133,6 @@ popupWithFormAvatar.setEventListeners();
 popupWithFormProfile.setEventListeners();
 popupWithImage.setEventListeners();
 
-const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
-  api.getUser()
-    .then((user) => {
-    profile.id = user._id;
-    profile.name = user.name;
-    profile.about = user.about;
-    profile.avatar = user.avatar;
-    profile.cohort = user.cohort;
-  })
-}} )
-profile.getUserInfo()
-
 //поставить лайк
 function handleCardLikeClick (evt, cardId) {    //в методы Card *ревьювер
   if(evt.target.classList.contains('card__button_active')){
@@ -161,7 +162,8 @@ export const section = new Section({
     const card = new Card({data, handleCardBigClick, handleCardLikeClick, handleCardDeleteClick }, profile.id, templateSelector)
     const cardElement = card.generate();
     section.addItem(cardElement);
-  }}, cardListSelector);
+  }
+}, cardListSelector);
 
 
 
