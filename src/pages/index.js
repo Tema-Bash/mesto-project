@@ -44,7 +44,7 @@ formInfoUser.enableValidation();
             
 //создаем профиль пользователя с персональным id
 const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
-  api.getUser()
+  api.getUser() 
     .then((user) => {
       profile.id = user._id;
       profile.name = user.name;
@@ -114,7 +114,7 @@ buttonAddNewCard.addEventListener("click", () => {
 profileAvatar.addEventListener("click", () => {
   popupWithFormAvatar.open();
 })
-console.log(profile.getUserInfo())
+
 //открываем попап профиля и подтягиваем значения строк из верстки
 buttonEditProfile.addEventListener("click", () => {
   popupWithFormProfile.open();

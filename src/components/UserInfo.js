@@ -22,14 +22,3 @@ export class UserInfo {
     this._id = _id;
   }
 }
-/*Можно лучше 
-Хоть в задании и просят использовать api в этом классе, но на самом деле составители ошиблись и это скоро исправят.
-лучше удалить все вызовы апи из класса. Тут нужно просто получать данные из textContent
-
-getUserInfo() {
-  return {
-    name: this._name.textContent,
-    about: this._about.textContent
-  }
-}
-*/
