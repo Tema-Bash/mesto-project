@@ -21,6 +21,9 @@ import {
   submitProfileButton,
   submitCardButton,
   UserDataSelectors,
+  formElementNewCard,
+  formElementProfile,
+  formElementAvatar,
   userAvatarImg, 
   options
 } from "../utils/constants.js";
@@ -33,13 +36,13 @@ export const api = new Api('https://nomoreparties.co/v1/plus-cohort-6', {
 });
 
 //вешаем валидацию
-const formNewCard = new FormValidator(options, '.popup__form_type_cards');
+const formNewCard = new FormValidator(options, formElementNewCard);
 formNewCard.enableValidation();
 
-const formNewAvatar = new FormValidator(options, '.popup__container_type_avatar');
+const formNewAvatar = new FormValidator(options, formElementAvatar);
 formNewAvatar.enableValidation();
 
-const formInfoUser = new FormValidator(options, '.popup__form_type_profile');
+const formInfoUser = new FormValidator(options, formElementProfile);
 formInfoUser.enableValidation();
             
 //создаем профиль пользователя с персональным id
@@ -63,7 +66,8 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
       section.renderer(data);
-      formNewCard.disableButton(submitCardButton, options.inactiveButtonClass);   //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов экземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
+      formNewCard.disableButton(submitCardButton, options.inactiveButtonClass);   //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов 
+      //кземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
       popupWithFormCard.close();
     })
     .catch((res) => {console.log(res)})
