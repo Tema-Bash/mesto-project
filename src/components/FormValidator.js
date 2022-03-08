@@ -1,35 +1,36 @@
 export class FormValidator {
-  constructor({formSelector, inputSelector, submitButtonSelector,inactiveButtonClass, inputErrorClass, errorClass}, formIdForValidation) {
+  constructor({formSelector, inputSelector, submitButtonSelector,inactiveButtonClass, inputErrorClass, errorClass}, formForValidation) {
     this._formSelector = formSelector;
     this._inputSelector = inputSelector;
     this._submitButtonSelector = submitButtonSelector;
     this._inactiveButtonClass = inactiveButtonClass;
     this._inputErrorClass = inputErrorClass;
     this._errorClass = errorClass;
+    this._form = formForValidation;
 
-    this._formSelectorForValidation = formIdForValidation;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector)); //в форме ищу все интпуты
+    this._buttonElement = this._form.querySelector(this._submitButtonSelector); // ищем кнопку
   }
 // публичный метод для навешивания функции валидации
   enableValidation(){
-    const form = document.querySelector(this._formSelectorForValidation); //ищу форму
-    const inputList = Array.from(form.querySelectorAll(this._inputSelector)); //в форме ищу все интпуты
-    this._toggleButtonState(form, inputList);
+
+    this._toggleButtonState(this._form);
     //вешаю на каждый инпут слушатель которой при введении символа проверяет валиден он или нет
-    inputList.forEach(input => {
+    this._inputList.forEach(input => {
       input.addEventListener('input', () => {
-        this._checkInputValidity(form, input, this._inputErrorClass, this._errorClass);
-        this._toggleButtonState(form, inputList);
+        this._checkInputValidity(this._form, input, this._inputErrorClass, this._errorClass);
+        this._toggleButtonState(this._form);
       })
     })
     //отключаю штатную оправку формы
-    form.addEventListener('submit' , event => { 
+    this._form.addEventListener('submit' , event => { 
       event.preventDefault();
     })
   };
 
   //имеет приватные методы, которые обрабатывают форму: проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики;
-  _hasInvalidInput = (inputList) => {
-    return inputList.some((input) => {return !input.validity.valid})
+  _hasInvalidInput = () => {
+    return this._inputList.some((input) => {return !input.validity.valid})
   };
   //включаем кнопку
   _enableButton = (buttonElement, inactiveButtonClass) => {
@@ -42,12 +43,11 @@ export class FormValidator {
     buttonElement.disabled = true;
   };
   //4 если не валидна форма делаем кнопку недоступной для клика
-  _toggleButtonState = (formElement, inputList) => {
-    const buttonElement = formElement.querySelector(this._submitButtonSelector);
-    if(this._hasInvalidInput(inputList)){
-      this.disableButton(buttonElement, this._inactiveButtonClass);
+  _toggleButtonState = () => {
+    if(this._hasInvalidInput()){
+      this.disableButton(this._buttonElement, this._inactiveButtonClass);
     }else{
-      this._enableButton(buttonElement, this._inactiveButtonClass);
+      this._enableButton(this._buttonElement, this._inactiveButtonClass);
     }
   };
   
