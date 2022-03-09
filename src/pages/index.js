@@ -137,44 +137,47 @@ popupWithFormAvatar.setEventListeners();
 popupWithFormProfile.setEventListeners();
 popupWithImage.setEventListeners();
 
-//поставить лайк
-function handleCardLikeClick (evt, cardId) {    //в методы Card *ревьювер
-  if(evt.target.classList.contains('card__button_active')){
-    api.deleteLike(cardId)
-    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
-    .then((_) => evt.target.classList.toggle('card__button_active'))
-    .catch((res)=>{console.log(res)}); 
-  }else {
-    api.putLike(cardId)
-    .then(res => evt.target.parentElement.querySelector('.card__likes').textContent = res.likes.length)
-    .then((_) => evt.target.classList.toggle('card__button_active'))
-    .catch((res)=>{console.log(res)});
+//ставим лайки
+function handleLike(card) {
+  if(card.isLiked()){
+    api.deleteLike(card.cardId)
+    .then((res) => {
+      card.updateLikes(res)
+    })
+    .catch((res)=>{
+      console.log(res)
+    })
+  } else {
+    api.putLike(card.cardId)   //+
+    .then((res) => {
+      card.updateLikes(res)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
-};
+}
 
-//удалить карточку нажатием на корзинку 
-function handleCardDeleteClick(evt, cardId) {   //в методы Card *ревьювер
-  api.deleteCard(cardId)
-  .then((_) => evt.target.closest('.card').remove())
+//удаляем карточку с сервера
+function handleDelete(card) {
+  api.deleteCard(card.cardId)
   .catch((res)=>{console.log(res)});
-};
+}
 
 //создаём экземпляр класса секшн
 export const section = new Section({
   renderer: (data) => {
     //грузим данные с сервера и рендерим их
-    const card = new Card({data, handleCardBigClick, handleCardLikeClick, handleCardDeleteClick }, profile.id, templateSelector)
+    const card = new Card({data, handleCardBigClick, handleLike, handleDelete}, profile.id, templateSelector)
     const cardElement = card.generate();
     section.addItem(cardElement);
   }
 }, cardListSelector);
 
-
-
 //грузим данные с сервера и рендерим их
 api.getAppInfo()
   .then(([user, cards]) => {
-    profile.setUserInfo(user)   // рисуем начальный профиль
-    section.renderItems(cards); //рисуем начальные карточки
+    profile.setUserInfo(user)
+    section.renderItems(cards)
   })
   .catch(err => console.log(err));

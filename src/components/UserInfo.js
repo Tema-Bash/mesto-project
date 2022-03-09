@@ -7,7 +7,7 @@ export class UserInfo {
   }
 
   getUserInfo() {
-    this._fillInfo() //костыль
+    this._fillInfo()
     return {
       name: this._name.textContent,
       about: this._about.textContent
