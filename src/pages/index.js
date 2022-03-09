@@ -12,8 +12,8 @@ import {
   buttonEditProfile,
   cardListSelector,
   templateSelector,
-  profileName,
-  profileAbout,
+  profileNameInput,
+  profileAboutInput,
   profileAvatar,
   submitAvatarButton,
   submitProfileButton,
@@ -41,11 +41,12 @@ formNewAvatar.enableValidation();
 
 const formInfoUser = new FormValidator(options, formElementProfile);
 formInfoUser.enableValidation();
-            
+         
 //создаем профиль пользователя с персональным id
 const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
   api.getUser() 
     .then((user) => {
+      console.log(user)
       profile.id = user._id;
       profile.name = user.name;
       profile.about = user.about;
@@ -63,7 +64,7 @@ export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
     api.cardRenderServer(data.formNameCard, data.formLinkCard)  
     .then((data)=> {  
       section.renderer(data);
-      formNewCard.disableButton(submitCardButton, options.inactiveButtonClass);   //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов 
+      formNewCard.disableButton();   
       //кземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
       popupWithFormCard.close();
     })
@@ -80,7 +81,7 @@ const popupWithFormAvatar = new PopupWithForm('.popup_type_avatar', {
     api.sendNewAvatar(data.formLinkAvatar)
     .then((updateUser) => {
       profile.setUserInfo(updateUser)
-      formNewAvatar.disableButton(submitAvatarButton, options.inactiveButtonClass);  //submitCardButton, options.inactiveButtonClass не нужно передавать в вызовы методов экземпляра FormValidator, так как сам класс внутри знает свою кнопку и селекторы валидации
+      formNewAvatar.disableButton(); 
       popupWithFormAvatar.close()
     })
     .catch((res)=>{console.log(res)})
@@ -118,9 +119,9 @@ profileAvatar.addEventListener("click", () => {
 
 //открываем попап профиля и подтягиваем значения строк из верстки
 buttonEditProfile.addEventListener("click", () => {
-  popupWithFormProfile.open();
-  profile.getUserInfo().name = profileName.textContent;
-  profile.getUserInfo().about = profileAbout.textContent;
+  popupWithFormProfile.open()
+  profileNameInput.value = profile.getUserInfo().name
+  profileAboutInput.value = profile.getUserInfo().about
 })
 
 //открываем попап конкретной карточки

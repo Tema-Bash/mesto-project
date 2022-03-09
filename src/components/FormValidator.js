@@ -33,21 +33,21 @@ export class FormValidator {
     return this._inputList.some((input) => {return !input.validity.valid})
   };
   //включаем кнопку
-  _enableButton = (buttonElement, inactiveButtonClass) => {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.disabled = false;
+  _enableButton = () => {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.disabled = false;
   };
   //выключаем кнопку
-  disableButton = (buttonElement, inactiveButtonClass) => {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.disabled = true;
+  disableButton = () => {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.disabled = true;
   };
   //4 если не валидна форма делаем кнопку недоступной для клика
   _toggleButtonState = () => {
     if(this._hasInvalidInput()){
-      this.disableButton(this._buttonElement, this._inactiveButtonClass);
+      this.disableButton();
     }else{
-      this._enableButton(this._buttonElement, this._inactiveButtonClass);
+      this._enableButton();
     }
   };
   
