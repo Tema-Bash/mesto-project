@@ -2,8 +2,6 @@ export const buttonAddNewCard = document.querySelector(".profile__add");
 export const buttonEditProfile = document.querySelector(".profile__edit");
 export const cardListSelector = '.cards__list'; 
 export const templateSelector = '#card-template';
-export const profileNameInput = document.querySelector('.popup__input_type_name');
-export const profileAboutInput = document.querySelector('.popup__input_type_about');
 export const profileName = document.querySelector(".profile__name");
 export const profileAbout = document.querySelector(".profile__about");
 export const profileAvatar = document.querySelector('.profile__avatar');
@@ -15,7 +13,6 @@ export const formElementNewCard = document.querySelector(".popup__form_type_card
 export const submitProfileButton = formElementProfile.querySelector('.popup__button');
 export const newCardPopup = document.querySelector('.popup_type_cards');
 export const submitCardButton = newCardPopup.querySelector('.popup__button');
-export const userAvatarImg = document.querySelector('.profile__image');
 //валидируем
 export const options = {
     formSelector: '.popup__form',

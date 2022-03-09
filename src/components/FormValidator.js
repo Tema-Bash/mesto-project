@@ -75,17 +75,4 @@ export class FormValidator {
       this._showInputError(inputElement, inputErrorClass, errorElement, errorClass, inputElement.validationMessage)
     }
   }
-  /*
-  //2 вешаем слушатель на ввод данных
-  _setEventListeners=(formElement, {inputSelector, inputErrorClass, errorClass,submitButtonSelector, inactiveButtonClass}) => {
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-      inputList.forEach(inputElement => {
-        inputElement.addEventListener('input', () => {
-          this._checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
-          this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
-        })
-      });
-      console.log(1)
-      this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
-  }*/
 }

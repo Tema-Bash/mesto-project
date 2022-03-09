@@ -12,8 +12,6 @@ import {
   buttonEditProfile,
   cardListSelector,
   templateSelector,
-  profileNameInput,
-  profileAboutInput,
   profileName,
   profileAbout,
   profileAvatar,
@@ -24,7 +22,6 @@ import {
   formElementNewCard,
   formElementProfile,
   formElementAvatar,
-  userAvatarImg, 
   options
 } from "../utils/constants.js";
 
@@ -148,7 +145,7 @@ function handleLike(card) {
       console.log(res)
     })
   } else {
-    api.putLike(card.cardId)   //+
+    api.putLike(card.cardId)  
     .then((res) => {
       card.updateLikes(res)
     })
