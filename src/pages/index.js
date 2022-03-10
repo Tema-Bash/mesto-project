@@ -46,7 +46,6 @@ formInfoUser.enableValidation();
 const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
   api.getUser() 
     .then((user) => {
-      console.log(user)
       profile.id = user._id;
       profile.name = user.name;
       profile.about = user.about;
@@ -54,7 +53,7 @@ const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
       profile.cohort = user.cohort;
     })
 }})
-profile.getUserInfo()
+
 
 //создаём экземпляр класса, для сохранения новой карточки 
 export const popupWithFormCard = new PopupWithForm('.popup_type_cards', {
@@ -119,9 +118,10 @@ profileAvatar.addEventListener("click", () => {
 
 //открываем попап профиля и подтягиваем значения строк из верстки
 buttonEditProfile.addEventListener("click", () => {
+  const {name, about} = profile.getUserInfo();
+  profileNameInput.value = name;
+  profileAboutInput.value = about;
   popupWithFormProfile.open()
-  profileNameInput.value = profile.getUserInfo().name
-  profileAboutInput.value = profile.getUserInfo().about
 })
 
 //открываем попап конкретной карточки
