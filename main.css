@@ -18,7 +18,7 @@
 .card{background-color:#fff;border-radius:10px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
 .card__title{font-size:24px;font-style:normal;font-weight:900;letter-spacing:0;line-height:29px;margin:0;max-width:200px;overflow:hidden;text-align:left;text-overflow:ellipsis;white-space:nowrap}
 .card__image{border-radius:10px 10px 0 0;height:282px;-o-object-fit:cover;object-fit:cover;width:282px}.card__image:hover{cursor:pointer;opacity:80%}
-.card__button{align-self:center;background:url(87ed371465c7a6a1cd01.svg);border:0;cursor:pointer;height:19px;padding:0;transition:background .3s;width:22px}.card__button:hover{background:url(dc59e8d7d19fee74d52f.svg)}
+.card__button{align-self:center;background:url(87ed371465c7a6a1cd01.svg);border:0;cursor:pointer;height:19px;padding:0;width:22px}.card__button:hover{opacity:50%;transition:.4s}
 .card__button_active{background:url(fe17a515669479b1e649.svg)}
 .card__delete{align-self:center;background:url(823b0cf1b0b7e9cb7cad.svg) no-repeat;border:0;cursor:pointer;height:20px;padding:0;position:absolute;right:20px;top:20px;transition:background .3s;width:18px}.card__delete:hover{opacity:.6}
 .card__description{background-color:#fff;border-radius:0 0 10px 10px;box-sizing:border-box;display:flex;justify-content:space-between;margin:22px 15px 22px 21px}
