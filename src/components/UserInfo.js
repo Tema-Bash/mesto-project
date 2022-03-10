@@ -17,6 +17,6 @@ export class UserInfo {
     this._avatarSrc.src = avatar;
     this._name.textContent = name; //имя с сервера
     this._about.textContent = about; //Абоут с сервера
-    this._id = _id;
+    this.id = _id;
   }
 }

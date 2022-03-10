@@ -70,9 +70,8 @@ export class Card {
     this._likeButton.classList.toggle('card__button_active')
   }
 
-  //удаляем из вёрстки карточку
+  //удаляем карточку
   _handleCardDeleteClick() {
-    this._element.closest('.card').remove();
     this._handledelete(this); //удаляем с сервера
   }
 }
