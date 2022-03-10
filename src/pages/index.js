@@ -43,16 +43,7 @@ const formInfoUser = new FormValidator(options, formElementProfile);
 formInfoUser.enableValidation();
          
 //создаем профиль пользователя с персональным id
-const profile = new UserInfo(UserDataSelectors, {fillInfo: () => {
-  api.getUser() 
-    .then((user) => {
-      profile.id = user._id;
-      profile.name = user.name;
-      profile.about = user.about;
-      profile.avatar = user.avatar;
-      profile.cohort = user.cohort;
-    })
-}})
+const profile = new UserInfo(UserDataSelectors)
 
 
 //создаём экземпляр класса, для сохранения новой карточки 

@@ -1,13 +1,11 @@
 export class UserInfo {
-  constructor({ imageSelector, nameSelector, aboutSelector }, {fillInfo}) { //Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
+  constructor({ imageSelector, nameSelector, aboutSelector }) { //Принимает в конструктор объект с селекторами двух элементов: элемента имени пользователя и элемента информации о себе.
     this._avatarSrc = document.querySelector(imageSelector) 
     this._name = document.querySelector(nameSelector) 
     this._about = document.querySelector(aboutSelector)
-    this._fillInfo = fillInfo
   }
 
   getUserInfo() {
-    this._fillInfo()
     return {
       name: this._name.textContent,
       about: this._about.textContent
