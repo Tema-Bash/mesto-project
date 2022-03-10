@@ -63,6 +63,10 @@ export class Card {
     this._deleteButton.addEventListener('click', () => this._handleCardDeleteClick());
   }
 
+  removeCard(){
+    this._element.closest('.card').remove()
+  }
+
   //обновляем лайки в вёрстке
   updateLikes(res){
     this._likes = res.likes;

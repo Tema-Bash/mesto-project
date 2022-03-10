@@ -150,9 +150,8 @@ function handleLike(card) {
 //удаляем карточку с сервера
 function handleDelete(card) {
   api.deleteCard(card.cardId)
-  .then(()=>{card._element.closest('.card').remove()})
+  .then(()=>{card.removeCard()})
   .catch((res)=>{console.log(res)})
-
 }
 
 //создаём экземпляр класса секшн
